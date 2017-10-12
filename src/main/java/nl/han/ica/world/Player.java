@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Player extends AnimatedSpriteObject implements ICollidableWithTiles {
 
-    final int size=25;
+    final int size=64;
     private final BeanWorld world;
 
     /**
