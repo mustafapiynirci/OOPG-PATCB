@@ -28,7 +28,7 @@ public class BeanSpawner implements IAlarmListener {
 
     private void startAlarm() {
         Alarm alarm=new Alarm("New bubble",1/beansPerSecond);
-        world.addAlarmToList(alarm);
+//        world.addAlarmToList(alarm);
         alarm.addTarget(this);
         alarm.start();
     }
