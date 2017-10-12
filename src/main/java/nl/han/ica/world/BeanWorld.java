@@ -1,7 +1,9 @@
 package nl.han.ica.world;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
+import nl.han.ica.OOPDProcessingEngineHAN.Alarm.Alarm;
 import nl.han.ica.OOPDProcessingEngineHAN.Dashboard.Dashboard;
 import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
@@ -30,9 +32,28 @@ public class BeanWorld extends GameEngine {
 	private IPersistence persistence;
 	private Pajaro pajaro;
 	private int worldWidth, worldHeight, tileSize;
+	private ArrayList<Alarm> alarms = new ArrayList<>();
 	
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "nl.han.ica.world.BeanWorld" });
+	}
+
+	/**
+	 * Deze methode voegt een alarm toe aan een alarm lijst
+	 * @param a
+	 * Deze parameter moet een object van het type Alarm bevatten.
+	 */
+	public void addAlarmToList(Alarm a) {
+		alarms.add(a);
+	}
+
+	/**
+	 * Stop alle alarms
+	 */
+	public void stopAllAlarms() {
+		for(Alarm a : alarms) {
+			a.stop();
+		}
 	}
 
 	/**
@@ -54,9 +75,9 @@ public class BeanWorld extends GameEngine {
 		tileSize = 32;
 		
 		initializeSound();
-		createDashboard(worldWidth, 100);
+		createDashboard(worldWidth, worldWidth);
 		initializeTileMap();
-		initializePersistence();
+//		initializePersistence();
 		
 		createObjects();
 		// createBubbleSpawner();
@@ -124,7 +145,8 @@ public class BeanWorld extends GameEngine {
 	 *            Gewenste hoogte van dashboard
 	 */
 	private void createDashboard(int dashboardWidth, int dashboardHeight) {
-		Dashboard dashboard = new Dashboard(0, 0, dashboardWidth, dashboardHeight);
+//		Dashboard dashboard = new Dashboard(0, 0, dashboardWidth, dashboardHeight);
+		Dashboard dashboard = new Dashboard(0, 300, dashboardWidth, dashboardHeight);
 		dashboardText = new TextObject("");
 		dashboard.addGameObject(dashboardText);
 		addDashboard(dashboard);
@@ -135,13 +157,13 @@ public class BeanWorld extends GameEngine {
 	 * en laadt indien mogelijk de eerder opgeslagen
 	 * waarde
 	 */
-	private void initializePersistence() {
-		persistence = new FilePersistence("main/java/nl/han/ica/world/media/bubblesPopped.txt");
-		if (persistence.fileExists()) {
-			bubblesPopped = Integer.parseInt(persistence.loadDataString());
-			refreshDasboardText();
-		}
-	}
+//	private void initializePersistence() {
+//		persistence = new FilePersistence("main/java/nl/han/ica/world/media/bubblesPopped.txt");
+//		if (persistence.fileExists()) {
+//			bubblesPopped = Integer.parseInt(persistence.loadDataString());
+//			refreshDasboardText();
+//		}
+//	}
 	
 	/**
 	 * Initialiseert de tilemap
@@ -154,31 +176,50 @@ public class BeanWorld extends GameEngine {
 		TileType[] tileTypes = { boardTileType };
 		
 		int tilesMap[][] = new int[worldHeight / tileSize][worldWidth / tileSize];
-		
 		for (int i = 0; i < tilesMap.length - 1; i++)
 			Arrays.fill(tilesMap[i], -1);
 		
 		tileMap = new TileMap(tileSize, tileTypes, tilesMap);
 	}
-	
+
 	@Override
 	public void update() {
+	}
+
+	/**
+	 * Alle acties doe uitgevoerd moeten worden wanneer de speler af is
+	 */
+	public void gameOver() {
+		stopAllAlarms();
+		clearAllGameObjects();
+		showGameOver();
+	}
+
+	/**
+	 * Laat de "Game Over" bericht zien op het scherm
+	 */
+	public void showGameOver() {
+		dashboardText.setText("Game Over");
+	}
+
+	public void clearAllGameObjects() {
+		getGameObjectItems().removeAllElements();
 	}
 	
 	/**
 	 * Vernieuwt het dashboard
 	 */
-	private void refreshDasboardText() {
-		dashboardText.setText("Bubbles popped: " + bubblesPopped);
-	}
+//	private void refreshDasboardText() {
+//		dashboardText.setText("Bubbles popped: " + bubblesPopped);
+//	}
 	
 	/**
 	 * Verhoogt de teller voor het aantal
 	 * geknapte bellen met 1
 	 */
-	public void increaseBubblesPopped() {
-		bubblesPopped++;
-		persistence.saveData(Integer.toString(bubblesPopped));
-		refreshDasboardText();
-	}
+//	public void increaseBubblesPopped() {
+//		bubblesPopped++;
+//		persistence.saveData(Integer.toString(bubblesPopped));
+//		refreshDasboardText();
+//	}
 }
