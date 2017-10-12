@@ -1,10 +1,14 @@
 package nl.han.ica.world;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.CollidedTile;
+import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithTiles;
 import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
+import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
+import nl.han.ica.OOPDProcessingEngineHAN.Tile.Tile;
+import nl.han.ica.world.Beans.Bean;
 import nl.han.ica.world.tiles.BoardsTile;
 import processing.core.PVector;
 
@@ -14,7 +18,7 @@ import java.util.List;
  * @author Ralph Niels
  *         De spelerklasse (het paarse visje)
  */
-public class Pajaro extends AnimatedSpriteObject implements ICollidableWithTiles {
+public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles {
 	
 	final int size = 64;
 	private final BeanWorld world;
@@ -29,7 +33,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithTiles
 		super(new Sprite("src/main/java/nl/han/ica/world/media/pajaro.png"), 4);
 		this.world = world;
 		setCurrentFrameIndex(1);
-		//setFriction(0.05f);
+		setGravity(2);
 	}
 	
 	@Override
@@ -65,7 +69,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithTiles
 	@Override
 	public void tileCollisionOccurred(List<CollidedTile> collidedTiles) {
 		PVector vector;
-		
+
 		for (CollidedTile ct : collidedTiles) {
 			if (ct.theTile instanceof BoardsTile) {
 				if (ct.collisionSide == ct.TOP) {
@@ -76,14 +80,15 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithTiles
 						e.printStackTrace();
 					}
 				}
-				if (ct.collisionSide == ct.RIGHT) {
-					try {
-						vector = world.getTileMap().getTilePixelLocation(ct.theTile);
-						world.getTileMap().setTile((int) vector.x / 50, (int) vector.y / 50, -1);
-					} catch (TileNotFoundException e) {
-						e.printStackTrace();
-					}
-				}
+			}
+		}
+	}
+
+	@Override
+	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
+		for(GameObject g : collidedGameObjects) {
+			if(g instanceof Bean) {
+				System.out.println("Game Over");
 			}
 		}
 	}
