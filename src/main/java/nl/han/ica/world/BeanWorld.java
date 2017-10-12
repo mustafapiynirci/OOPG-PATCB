@@ -7,12 +7,10 @@ import nl.han.ica.OOPDProcessingEngineHAN.Alarm.Alarm;
 import nl.han.ica.OOPDProcessingEngineHAN.Dashboard.Dashboard;
 import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
-import nl.han.ica.OOPDProcessingEngineHAN.Persistence.FilePersistence;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.IPersistence;
 import nl.han.ica.OOPDProcessingEngineHAN.Sound.Sound;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
-import nl.han.ica.OOPDProcessingEngineHAN.View.EdgeFollowingViewport;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
 import nl.han.ica.world.tiles.BoardsTile;
 import processing.core.PApplet;
@@ -26,10 +24,8 @@ public class BeanWorld extends GameEngine {
 	private Sound backgroundSound;
 	private Sound bubblePopSound;
 	private TextObject dashboardText;
-	// private BubbleSpawner bubbleSpawner;
 	private BeanSpawner beanSpawner;
-	private int bubblesPopped;
-	private IPersistence persistence;
+//	private IPersistence persistence;
 	private Pajaro pajaro;
 	private int worldWidth, worldHeight, tileSize;
 	private ArrayList<Alarm> alarms = new ArrayList<>();
@@ -145,7 +141,6 @@ public class BeanWorld extends GameEngine {
 	 *            Gewenste hoogte van dashboard
 	 */
 	private void createDashboard(int dashboardWidth, int dashboardHeight) {
-//		Dashboard dashboard = new Dashboard(0, 0, dashboardWidth, dashboardHeight);
 		Dashboard dashboard = new Dashboard(0, 300, dashboardWidth, dashboardHeight);
 		dashboardText = new TextObject("");
 		dashboard.addGameObject(dashboardText);
@@ -153,23 +148,9 @@ public class BeanWorld extends GameEngine {
 	}
 	
 	/**
-	 * Initialiseert de opslag van de bellenteller
-	 * en laadt indien mogelijk de eerder opgeslagen
-	 * waarde
-	 */
-//	private void initializePersistence() {
-//		persistence = new FilePersistence("main/java/nl/han/ica/world/media/bubblesPopped.txt");
-//		if (persistence.fileExists()) {
-//			bubblesPopped = Integer.parseInt(persistence.loadDataString());
-//			refreshDasboardText();
-//		}
-//	}
-	
-	/**
 	 * Initialiseert de tilemap
 	 */
 	private void initializeTileMap() {
-		/* TILES */
 		Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/world/media/boards.jpg");
 		TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
 		
@@ -184,6 +165,7 @@ public class BeanWorld extends GameEngine {
 
 	@Override
 	public void update() {
+		System.out.println(alarms.size());
 	}
 
 	/**

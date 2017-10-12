@@ -35,7 +35,7 @@ public class BeanSpawner implements IAlarmListener {
 
     @Override
     public void triggerAlarm(String alarmName) {
-        int beanSize = 32;
+        int beanSize = 64;
         Bean b = new GreenBean(world, beanSize);
 
         int lengthHelper = (world.getWidth() / world.getTileSize()) - 1;

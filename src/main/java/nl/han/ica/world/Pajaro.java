@@ -7,7 +7,6 @@ import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
-import nl.han.ica.OOPDProcessingEngineHAN.Tile.Tile;
 import nl.han.ica.world.Beans.Bean;
 import nl.han.ica.world.tiles.BoardsTile;
 import processing.core.PVector;

@@ -7,10 +7,8 @@ import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
-import nl.han.ica.OOPDProcessingEngineHAN.Sound.Sound;
 import nl.han.ica.world.BeanWorld;
 import nl.han.ica.world.tiles.BoardsTile;
-import processing.core.PGraphics;
 import processing.core.PVector;
 
 import java.util.List;
@@ -18,10 +16,11 @@ import java.util.List;
 public class Bean extends AnimatedSpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles {
 
     protected int beanSize;
+    protected int spriteFrameCountStart = 0;
     protected final BeanWorld world;
 
-    public Bean(BeanWorld world, int beanSize) {
-        super(new Sprite("src/main/java/nl/han/ica/world/media/pajaro.png"),2);
+    public Bean(BeanWorld world, int beanSize, String spriteUrl, int spriteSlices) {
+        super(new Sprite(spriteUrl), spriteSlices);
         this.beanSize = beanSize;
         this.world=world;
         setySpeed(+beanSize/20f);
