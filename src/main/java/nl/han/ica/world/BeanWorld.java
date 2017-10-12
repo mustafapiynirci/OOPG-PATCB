@@ -25,7 +25,7 @@ public class BeanWorld extends GameEngine {
     private BubbleSpawner bubbleSpawner;
     private int bubblesPopped;
     private IPersistence persistence;
-    private Player player;
+    private Pajaro pajaro;
 
 
     public static void main(String[] args) {
@@ -77,7 +77,7 @@ public class BeanWorld extends GameEngine {
      * @param zoomFactor Factor waarmee wordt ingezoomd
      */
     private void createViewWithViewport(int worldWidth,int worldHeight,int screenWidth,int screenHeight,float zoomFactor) {
-        EdgeFollowingViewport viewPort = new EdgeFollowingViewport(player, (int)Math.ceil(screenWidth/zoomFactor),(int)Math.ceil(screenHeight/zoomFactor),0,0);
+        EdgeFollowingViewport viewPort = new EdgeFollowingViewport(pajaro, (int)Math.ceil(screenWidth/zoomFactor),(int)Math.ceil(screenHeight/zoomFactor),0,0);
         viewPort.setTolerance(50, 50, 50, 50);
         View view = new View(viewPort, worldWidth,worldHeight);
         setView(view);
@@ -99,8 +99,8 @@ public class BeanWorld extends GameEngine {
      * Maakt de spelobjecten aan
      */
     private void createObjects() {
-        player = new Player(this);
-        addGameObject(player, 100, 100);
+        pajaro = new Pajaro(this);
+        addGameObject(pajaro, 100, 100);
         Swordfish sf=new Swordfish(this);
         addGameObject(sf,200,200);
     }

@@ -193,7 +193,7 @@ public class Dashboard extends GameObject {
 	/**
 	 * Deletes all GameObjects with the given type from the Dashboard.
 	 *
-	 * Example paramater: Player.class
+	 * Example paramater: Pajaro.class
 	 *
 	 * @param type
 	 * @param <T>

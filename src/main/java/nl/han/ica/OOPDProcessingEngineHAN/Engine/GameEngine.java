@@ -249,7 +249,7 @@ public abstract class GameEngine extends PApplet {
     /**
      * Delete all GameObjects of a given type from the GameEngine.
      *
-     * Example paramater: Player.class
+     * Example paramater: Pajaro.class
      *
      * @param type
      * @param <T>

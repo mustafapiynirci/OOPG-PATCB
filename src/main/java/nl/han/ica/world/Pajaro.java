@@ -14,7 +14,7 @@ import java.util.List;
  * @author Ralph Niels
  * De spelerklasse (het paarse visje)
  */
-public class Player extends AnimatedSpriteObject implements ICollidableWithTiles {
+public class Pajaro extends AnimatedSpriteObject implements ICollidableWithTiles {
 
     final int size=64;
     private final BeanWorld world;
@@ -23,7 +23,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
      * Constructor
      * @param world Referentie naar de wereld
      */
-    public Player(BeanWorld world) {
+    public Pajaro(BeanWorld world) {
         super(new Sprite("src/main/java/nl/han/ica/world/media/player.png"),2);
         this.world=world;
         setCurrentFrameIndex(1);
