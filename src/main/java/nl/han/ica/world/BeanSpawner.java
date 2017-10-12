@@ -5,6 +5,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Alarm.IAlarmListener;
 import nl.han.ica.world.Beans.Bean;
 import nl.han.ica.world.Beans.GreenBean;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class BeanSpawner implements IAlarmListener {
@@ -35,9 +36,14 @@ public class BeanSpawner implements IAlarmListener {
     public void triggerAlarm(String alarmName) {
         int beanSize = 32;
         Bean b = new GreenBean(world, beanSize);
-//        Bubble b=new Bubble(bubbleSize,world,popSound);
-//        world.addGameObject(b, random.nextInt(world.getWidth()), world.getHeight());
-        world.addGameObject(b, random.nextInt(world.getWidth()), 0);
+
+        int lengthHelper = (world.getWidth() / world.getTileSize()) - 1;
+        int[] spawnHelper = new int[lengthHelper];
+        for(int i = 0; i < lengthHelper; i++) {
+            spawnHelper[i] = i * world.getTileSize();
+        }
+
+        world.addGameObject(b, spawnHelper[random.nextInt(lengthHelper)], 0 - b.getHeight());
         startAlarm();
     }
 }

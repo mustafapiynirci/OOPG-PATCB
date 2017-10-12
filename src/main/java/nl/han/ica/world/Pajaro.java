@@ -33,7 +33,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 		super(new Sprite("src/main/java/nl/han/ica/world/media/pajaro.png"), 4);
 		this.world = world;
 		setCurrentFrameIndex(1);
-		setGravity(2);
+//		setGravity(2);
 	}
 	
 	@Override
@@ -88,6 +88,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
 		for(GameObject g : collidedGameObjects) {
 			if(g instanceof Bean) {
+				// rest van de Game Over code
 				System.out.println("Game Over");
 			}
 		}

@@ -34,7 +34,14 @@ public class BeanWorld extends GameEngine {
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "nl.han.ica.world.BeanWorld" });
 	}
-	
+
+	/**
+	 * Deze methode geeft de grootte van tile terug
+	 * @return tileSize
+	 */
+	public int getTileSize() {
+		return tileSize;
+	}
 	/**
 	 * In deze methode worden de voor het spel
 	 * noodzakelijke zaken geïnitialiseerd
