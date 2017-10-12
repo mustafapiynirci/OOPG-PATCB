@@ -1,4 +1,4 @@
 package nl.han.ica.world.Beans;
 
-public class GreenBean {
+public class GreenBean extends Bean {
 }

@@ -1,4 +1,4 @@
 package nl.han.ica.world.Beans;
 
-public class BomBean {
+public abstract class Bean {
 }
