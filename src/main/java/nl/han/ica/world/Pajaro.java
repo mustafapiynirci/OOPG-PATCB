@@ -29,7 +29,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithTiles
 		super(new Sprite("src/main/java/nl/han/ica/world/media/pajaro.png"), 4);
 		this.world = world;
 		setCurrentFrameIndex(1);
-		setFriction(0.05f);
+		//setFriction(0.05f);
 	}
 	
 	@Override
@@ -37,20 +37,10 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithTiles
 		if (getX() <= 0) {
 			setxSpeed(0);
 			setX(0);
-		}
-		if (getY() <= 0) {
-			setySpeed(0);
-			setY(0);
-		}
-		if (getX() >= world.getWidth() - size) {
+		} else if (getX() >= world.getWidth() - size) {
 			setxSpeed(0);
 			setX(world.getWidth() - size);
 		}
-		if (getY() >= world.getHeight() - size) {
-			setySpeed(0);
-			setY(world.getHeight() - size);
-		}
-		
 	}
 	
 	@Override
@@ -59,20 +49,17 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithTiles
 		if (keyCode == world.LEFT) {
 			setDirectionSpeed(270, speed);
 			setCurrentFrameIndex(0);
-		}
-		if (keyCode == world.UP) {
-			setDirectionSpeed(0, speed);
-		}
-		if (keyCode == world.RIGHT) {
+		} else if (keyCode == world.UP || key == ' ') {
+			// setDirectionSpeed(0, speed);
+		} else if (keyCode == world.RIGHT) {
 			setDirectionSpeed(90, speed);
-			setCurrentFrameIndex(1);
+			setCurrentFrameIndex(2);
 		}
-		if (keyCode == world.DOWN) {
-			setDirectionSpeed(180, speed);
-		}
-		if (key == ' ') {
-			System.out.println("Spatie!");
-		}
+	}
+	
+	@Override
+	public void keyReleased(int keyCode, char key) {
+		setSpeed(0);    
 	}
 	
 	@Override

@@ -29,7 +29,7 @@ public class BeanWorld extends GameEngine {
 	private int bubblesPopped;
 	private IPersistence persistence;
 	private Pajaro pajaro;
-	private int worldWidth, worldHeight;
+	private int worldWidth, worldHeight, tileSize;
 	
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "nl.han.ica.world.BeanWorld" });
@@ -44,6 +44,7 @@ public class BeanWorld extends GameEngine {
 		
 		worldWidth = 960;
 		worldHeight = 704;
+		tileSize = 32;
 		
 		initializeSound();
 		createDashboard(worldWidth, 100);
@@ -88,7 +89,7 @@ public class BeanWorld extends GameEngine {
 	 */
 	private void createObjects() {
 		pajaro = new Pajaro(this);
-		addGameObject(pajaro, 100, 100);
+		addGameObject(pajaro, worldWidth / 2 - pajaro.getWidth()/2, worldHeight - tileSize - pajaro.getHeight());
 		Swordfish sf = new Swordfish(this);
 		addGameObject(sf, 200, 200);
 	}
@@ -144,7 +145,6 @@ public class BeanWorld extends GameEngine {
 		TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
 		
 		TileType[] tileTypes = { boardTileType };
-		int tileSize = 32;
 		
 		int tilesMap[][] = new int[worldHeight / tileSize][worldWidth / tileSize];
 		
