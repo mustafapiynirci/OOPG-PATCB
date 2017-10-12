@@ -39,7 +39,7 @@ public class BubbleSpawner implements IAlarmListener {
 
     @Override
     public void triggerAlarm(String alarmName) {
-    		int bubbleSize=random.nextInt(10) + 10;
+        int bubbleSize=random.nextInt(10) + 10;
         Bubble b=new Bubble(bubbleSize,world,popSound);
         world.addGameObject(b, random.nextInt(world.getWidth()), world.getHeight());
         startAlarm();

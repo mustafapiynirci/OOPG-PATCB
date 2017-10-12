@@ -22,7 +22,8 @@ public class BeanWorld extends GameEngine {
     private Sound backgroundSound;
     private Sound bubblePopSound;
     private TextObject dashboardText;
-    private BubbleSpawner bubbleSpawner;
+//    private BubbleSpawner bubbleSpawner;
+    private BeanSpawner beanSpawner;
     private int bubblesPopped;
     private IPersistence persistence;
     private Pajaro pajaro;
@@ -48,7 +49,8 @@ public class BeanWorld extends GameEngine {
         initializePersistence();
 
         createObjects();
-        createBubbleSpawner();
+//        createBubbleSpawner();
+        createBeanSpawner();
 
         createViewWithoutViewport(worldWidth, worldHeight);
         //createViewWithViewport(worldWidth, worldHeight, 800, 800, 1.1f);
@@ -108,8 +110,15 @@ public class BeanWorld extends GameEngine {
     /**
      * Maakt de spawner voor de bellen aan
      */
-    public void createBubbleSpawner() {
-        bubbleSpawner=new BubbleSpawner(this,bubblePopSound,2);
+//    public void createBubbleSpawner() {
+//        bubbleSpawner=new BubbleSpawner(this,bubblePopSound,2);
+//    }
+
+    /**
+     * Maakt de spawner voor de bonen aan
+     */
+    public void createBeanSpawner() {
+        beanSpawner = new BeanSpawner(this, 0.5);
     }
 
     /**

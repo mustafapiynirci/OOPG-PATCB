@@ -11,7 +11,7 @@ import java.util.List;
  * @author Ralph Niels
  * Bel-klasse
  */
-public class Bubble extends GameObject implements ICollidableWithGameObjects{
+public class Bubble extends GameObject implements ICollidableWithGameObjects {
 
     private final Sound popSound;
     private BeanWorld world;
