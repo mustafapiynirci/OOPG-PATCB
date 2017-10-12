@@ -8,7 +8,7 @@ public class GreenBean extends Bean implements IAlarmListener {
 
     public GreenBean(BeanWorld world, int beanSize) {
         super(world, beanSize, "nl/han/ica/world/media/greenbean.png", 4);
-        setCurrentFrameIndex(4);
+        setCurrentFrameIndex(0);
         startAlarm();
     }
 
