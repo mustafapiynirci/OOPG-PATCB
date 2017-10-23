@@ -37,7 +37,7 @@ public class Spit extends AnimatedSpriteObject implements ICollidableWithGameObj
 
         this.spitSize = spitSize;
 
-        side = side;
+        this.side = side;
     }
 
 
