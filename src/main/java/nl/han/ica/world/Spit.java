@@ -54,7 +54,6 @@ public class Spit extends AnimatedSpriteObject implements ICollidableWithGameObj
 
     @Override
     public void update() {
-        System.out.println("Spit: " + getY() + " " + world.getHeight());
         if (getY() <= (0 - getHeight()) || getX() <= (0 - getWidth()) || getX() >= (world.width + getWidth())) {
             world.deleteGameObject(this);
             System.out.println("Spit deleted");
