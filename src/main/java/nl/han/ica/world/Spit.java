@@ -19,7 +19,7 @@ public class Spit extends AnimatedSpriteObject implements ICollidableWithGameObj
 
     private LookingSide side;
 
-    public Spit(BeanWorld world, int spitSize, LookingSide side1) {
+    public Spit(BeanWorld world, int spitSize, LookingSide side) {
         super(new Sprite("nl/han/ica/world/media/whiteCircle.png"), 1);
         this.world = world;
 
@@ -37,7 +37,7 @@ public class Spit extends AnimatedSpriteObject implements ICollidableWithGameObj
 
         this.spitSize = spitSize;
 
-        side = side1;
+        side = side;
     }
 
 
