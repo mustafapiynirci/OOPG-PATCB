@@ -13,30 +13,23 @@ public class Spit extends AnimatedSpriteObject implements ICollidableWithGameObj
     private int spitSize;
     private BeanWorld world;
 
-
     private int thisX;
     private int thisY;
-
     private LookingSide side;
 
     public Spit(BeanWorld world, int spitSize, LookingSide side) {
         super(new Sprite("nl/han/ica/world/media/whiteCircle.png"), 1);
         this.world = world;
-
         for(GameObject g : world.getGameObjectItems()) {
             if(g instanceof Pajaro) {
                 thisX = (int) g.getX();
                 thisY = (int) g.getY();
             }
         }
-
         setHeight(spitSize);
         setWidth(spitSize);
-
         setSpeed(5);
-
         this.spitSize = spitSize;
-
         this.side = side;
     }
 
@@ -56,7 +49,6 @@ public class Spit extends AnimatedSpriteObject implements ICollidableWithGameObj
     public void update() {
         if (getY() <= (0 - getHeight()) || getX() <= (0 - getWidth()) || getX() >= (world.width + getWidth())) {
             world.deleteGameObject(this);
-            System.out.println("Spit deleted");
         }
         if(side == LookingSide.LEFT) {
             setX(getX() - getSpeed());
