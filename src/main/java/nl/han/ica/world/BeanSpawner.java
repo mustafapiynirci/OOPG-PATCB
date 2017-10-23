@@ -4,6 +4,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Alarm.Alarm;
 import nl.han.ica.OOPDProcessingEngineHAN.Alarm.IAlarmListener;
 import nl.han.ica.world.Beans.Bean;
 import nl.han.ica.world.Beans.GreenBean;
+import nl.han.ica.world.Beans.RainbowBean;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -36,7 +37,30 @@ public class BeanSpawner implements IAlarmListener {
     @Override
     public void triggerAlarm(String alarmName) {
         int beanSize = 64;
-        Bean b = new GreenBean(world, beanSize);
+        int whichBean;
+        Bean b;
+        double r = random.nextDouble();
+
+//        if (r < 0.1) { whichBean = 0; }
+//        else if (r < 0.25) { whichBean = 1; }
+//        else if (r < 0.50) { whichBean = 2; }
+//        else { whichBean = 3; }
+
+        if (r < 0.30) { whichBean = 2; }
+        else { whichBean = 3; }
+
+        System.out.println(whichBean);
+
+        switch (whichBean) {
+            case 3:
+                b = new GreenBean(world, beanSize);
+                break;
+            case 2:
+                b = new RainbowBean(world, beanSize);
+                break;
+            default:
+                b = new GreenBean(world, beanSize);
+        }
 
         int lengthHelper = (world.getWidth() / world.getTileSize()) - 1;
         int[] spawnHelper = new int[lengthHelper];

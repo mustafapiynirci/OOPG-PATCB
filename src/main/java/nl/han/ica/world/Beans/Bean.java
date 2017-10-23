@@ -40,7 +40,22 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithGameObj
     public void update() {
         if (getY() >= world.getHeight()) {
             world.deleteGameObject(this);
-            System.out.println("Deleted");
+            System.out.println("Deleted bean");
+        }
+        getScore();
+    }
+
+    public int getScore() {
+        if(getY() <= (world.height / 100 * 15)) {
+            return 1000;
+        } else if (getY() <= (world.height / 100 * 30)) {
+            return 600;
+        } else if (getY() <= (world.height / 100 * 50)) {
+            return 300;
+        } else if (getY() <= (world.height / 100 * 70)) {
+            return 100;
+        } else {
+            return 50;
         }
     }
 
