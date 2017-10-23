@@ -21,6 +21,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	
 	final int size = 64;
 	private final BeanWorld world;
+	private LookingSide side;
 	
 	/**
 	 * Constructor
@@ -52,19 +53,21 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 		if (keyCode == world.LEFT) {
 			setDirectionSpeed(270, speed);
 			setCurrentFrameIndex(0);
-		} else if (keyCode == world.UP || key == ' ') {
-			Spit s = new Spit(world, 20);
+			side = LookingSide.LEFT;
+		} else if (keyCode == world.UP && key == ' ' || key == ' ') {
+			System.out.println(side);
+			Spit s = new Spit(world, 20, side);
 			world.addGameObject(s, getX(), getY() + ((getHeight() / 2) / 2));
-			// setDirectionSpeed(0, speed);
 		} else if (keyCode == world.RIGHT) {
 			setDirectionSpeed(90, speed);
 			setCurrentFrameIndex(2);
+			side = LookingSide.RIGHT;
 		}
 	}
-	
+
 	@Override
 	public void keyReleased(int keyCode, char key) {
-		setSpeed(0);    
+		setSpeed(0);
 	}
 	
 	@Override

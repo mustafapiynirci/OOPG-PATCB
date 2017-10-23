@@ -74,11 +74,9 @@ public class BeanWorld extends GameEngine {
 		createDashboard(worldWidth, worldWidth);
 		initializeTileMap();
 //		initializePersistence();
-		
 		createObjects();
 		// createBubbleSpawner();
 		createBeanSpawner();
-		
 		createViewWithoutViewport(worldWidth, worldHeight);
 		
 	}
