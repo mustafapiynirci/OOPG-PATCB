@@ -31,6 +31,8 @@ public class Spit extends AnimatedSpriteObject implements ICollidableWithGameObj
         setHeight(spitSize);
         setWidth(spitSize);
 
+        setSpeed(5);
+
         this.spitSize = spitSize;
     }
 
@@ -41,14 +43,15 @@ public class Spit extends AnimatedSpriteObject implements ICollidableWithGameObj
             if(g instanceof Bean) {
                 System.out.println("COLLIDED WITH BEAN");
                 world.deleteGameObject(g);
+                world.deleteGameObject(this);
             }
         }
     }
 
     @Override
     public void update() {
-        setX(getX() - 5);
-        setY(getY() - 5);
+        setX(getX() - getSpeed());
+        setY(getY() - getSpeed());
     }
 
 //    @Override

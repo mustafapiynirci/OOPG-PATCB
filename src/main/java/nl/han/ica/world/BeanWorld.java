@@ -165,7 +165,7 @@ public class BeanWorld extends GameEngine {
 
 	@Override
 	public void update() {
-		System.out.println(alarms.size());
+//		System.out.println(alarms.size());
 	}
 
 	/**

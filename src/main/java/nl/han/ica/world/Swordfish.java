@@ -35,6 +35,5 @@ public class Swordfish extends SpriteObject {
         if (getX()+getWidth()<=0) {
             setX(world.getWidth());
         }
-
     }
 }
