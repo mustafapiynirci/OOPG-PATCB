@@ -45,7 +45,7 @@ public class Spit extends AnimatedSpriteObject implements ICollidableWithGameObj
     public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
         for(GameObject g : collidedGameObjects) {
             if(g instanceof Bean) {
-                System.out.println("COLLIDED WITH BEAN");
+                System.out.println(((Bean) g).getScore());
                 world.deleteGameObject(g);
                 world.deleteGameObject(this);
             }
@@ -60,22 +60,8 @@ public class Spit extends AnimatedSpriteObject implements ICollidableWithGameObj
         }
         if(side == LookingSide.LEFT) {
             setX(getX() - getSpeed());
-            System.out.println("left");
         } else if (side == LookingSide.RIGHT) {
             setX(getX() + getSpeed());
-            System.out.println("right " + getY());
         }
     }
-
-//    @Override
-//    public void draw(PGraphics g) {
-//        g.ellipseMode(g.CORNER); // Omdat cirkel anders vanuit midden wordt getekend en dat problemen geeft bij collisiondetectie
-//        g.stroke(0, 50, 200, 100);
-//        g.fill(255);
-//        g.ellipse(thisX, thisY, spitSize, spitSize);
-
-        // eigenlijk speed van spit
-//        thisX -= 5;
-//        thisY -= 5;
-//    }
 }

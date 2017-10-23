@@ -34,7 +34,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 		super(new Sprite("src/main/java/nl/han/ica/world/media/pajaro.png"), 4);
 		this.world = world;
 		setCurrentFrameIndex(1);
-		setGravity(1);
+//		setGravity(1);
 	}
 	
 	@Override
