@@ -19,7 +19,8 @@ import java.util.List;
  */
 public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles {
 	
-	final int size = 64;
+//	final int size = 64;
+	final int size = 32;
 	private final BeanWorld world;
 	private LookingSide side;
 	
@@ -33,7 +34,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 		super(new Sprite("src/main/java/nl/han/ica/world/media/pajaro.png"), 4);
 		this.world = world;
 		setCurrentFrameIndex(1);
-//		setGravity(2);
+		setGravity(1);
 	}
 	
 	@Override
@@ -44,7 +45,11 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 		} else if (getX() >= world.getWidth() - size) {
 			setxSpeed(0);
 			setX(world.getWidth() - size);
+		} else if (getY() >= (world.getHeight() + getHeight())) {
+			world.deleteGameObject(this);
+			System.out.println("Pajaro died");
 		}
+//		walkable();
 	}
 	
 	@Override
@@ -69,6 +74,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	public void keyReleased(int keyCode, char key) {
 		setSpeed(0);
 	}
+
 	
 	@Override
 	public void tileCollisionOccurred(List<CollidedTile> collidedTiles) {
@@ -80,6 +86,16 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 					try {
 						vector = world.getTileMap().getTilePixelLocation(ct.theTile);
 						setY(vector.y - getHeight());
+//						System.out.println(world.getTileMap().getTileOnIndex(0,0) + " 0");
+//						System.out.println(world.getTileMap().getTileOnIndex(0,1) + " 1");
+//						System.out.println(world.getTileMap().getTileOnIndex(0,(world.getHeight() / world.getTileSize()) - 1) + " 2");
+//						System.out.println((world.getHeight() / world.getTileSize()) - 1 + " tesst");
+//						System.out.println(world.getTileMap().getTileOnIndex((int) ((world.getWidth() / getX())), 21) + " 5");
+//						System.out.println(world.getTileMap().getTileOnIndex(0, 21) + " 5");
+//						System.out.println((getX() + getHeight()) / world.getTileSize() + " test");
+
+						// 22 - 30
+						System.out.println(world.getHeight() / world.getTileSize() + " " + world.getWidth() / world.getTileSize());
 					} catch (TileNotFoundException e) {
 						e.printStackTrace();
 					}
