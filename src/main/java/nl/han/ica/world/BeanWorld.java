@@ -25,7 +25,7 @@ public class BeanWorld extends GameEngine {
 	private Sound bubblePopSound;
 	private TextObject dashboardText;
 	private BeanSpawner beanSpawner;
-//	private IPersistence persistence;
+	// private IPersistence persistence;
 	private Pajaro pajaro;
 	private int worldWidth, worldHeight, tileSize;
 	private ArrayList<Alarm> alarms = new ArrayList<>();
@@ -33,32 +33,43 @@ public class BeanWorld extends GameEngine {
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "nl.han.ica.world.BeanWorld" });
 	}
-
+	
 	/**
 	 * Deze methode voegt een alarm toe aan een alarm lijst
+	 * 
 	 * @param a
-	 * Deze parameter moet een object van het type Alarm bevatten.
+	 *            Deze parameter moet een object van het type Alarm bevatten.
 	 */
 	public void addAlarmToList(Alarm a) {
 		alarms.add(a);
 	}
-
+	
 	/**
 	 * Stop alle alarms
 	 */
 	public void stopAllAlarms() {
-		for(Alarm a : alarms) {
+		for (Alarm a : alarms) {
 			a.stop();
 		}
 	}
-
+	
 	/**
 	 * Deze methode geeft de grootte van tile terug
+	 * 
 	 * @return tileSize
 	 */
 	public int getTileSize() {
 		return tileSize;
 	}
+	
+	public int getWorldWidth() {
+		return worldWidth;
+	}
+	
+	public int getWorldHeight() {
+		return worldHeight;
+	}
+	
 	/**
 	 * In deze methode worden de voor het spel
 	 * noodzakelijke zaken geïnitialiseerd
@@ -73,9 +84,7 @@ public class BeanWorld extends GameEngine {
 		initializeSound();
 		createDashboard(worldWidth, worldWidth);
 		initializeTileMap();
-//		initializePersistence();
 		createObjects();
-		// createBubbleSpawner();
 		createBeanSpawner();
 		createViewWithoutViewport(worldWidth, worldHeight);
 		
@@ -111,9 +120,7 @@ public class BeanWorld extends GameEngine {
 	 */
 	private void createObjects() {
 		pajaro = new Pajaro(this);
-		addGameObject(pajaro, worldWidth / 2 - pajaro.getWidth()/2, worldHeight - tileSize - pajaro.getHeight());
-		Swordfish sf = new Swordfish(this);
-		addGameObject(sf, 200, 200);
+		addGameObject(pajaro, worldWidth / 2 - pajaro.getWidth() / 2, worldHeight - tileSize - pajaro.getHeight());
 	}
 	
 	/**
@@ -153,45 +160,20 @@ public class BeanWorld extends GameEngine {
 		TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
 		
 		TileType[] tileTypes = { boardTileType };
-
-		int tilesMap[][]={
-				{ 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{ 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		};
-
-//		int tilesMap[][] = new int[worldHeight / tileSize][worldWidth / tileSize];
-//		for (int i = 0; i < tilesMap.length - 1; i++) {
-//			Arrays.fill(tilesMap[i], -1);
-//		}
-
+		
+		int tilesMap[][] = new int[worldHeight / tileSize][worldWidth / tileSize];
+		for (int i = 0; i < tilesMap.length - 1; i++) {
+			Arrays.fill(tilesMap[i], -1);
+		}
+		
 		tileMap = new TileMap(tileSize, tileTypes, tilesMap);
 	}
-
+	
 	@Override
 	public void update() {
-//		System.out.println(alarms.size());
+		// System.out.println(alarms.size());
 	}
-
+	
 	/**
 	 * Alle acties doe uitgevoerd moeten worden wanneer de speler af is
 	 */
@@ -200,14 +182,14 @@ public class BeanWorld extends GameEngine {
 		clearAllGameObjects();
 		showGameOver();
 	}
-
+	
 	/**
 	 * Laat de "Game Over" bericht zien op het scherm
 	 */
 	public void showGameOver() {
 		dashboardText.setText("Game Over");
 	}
-
+	
 	public void clearAllGameObjects() {
 		getGameObjectItems().removeAllElements();
 	}
@@ -215,17 +197,18 @@ public class BeanWorld extends GameEngine {
 	/**
 	 * Vernieuwt het dashboard
 	 */
-//	private void refreshDasboardText() {
-//		dashboardText.setText("Bubbles popped: " + bubblesPopped);
-//	}
+	// private void refreshDasboardText() {
+	// dashboardText.setText("Bubbles popped: " + bubblesPopped);
+	// }
 	
 	/**
 	 * Verhoogt de teller voor het aantal
 	 * geknapte bellen met 1
 	 */
-//	public void increaseBubblesPopped() {
-//		bubblesPopped++;
-//		persistence.saveData(Integer.toString(bubblesPopped));
-//		refreshDasboardText();
-//	}
+	// public void increaseBubblesPopped() {
+	// bubblesPopped++;
+	// persistence.saveData(Integer.toString(bubblesPopped));
+	// refreshDasboardText();
+	// }
+	
 }
