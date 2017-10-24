@@ -36,7 +36,7 @@ public class BeanSpawner implements IAlarmListener {
 
     @Override
     public void triggerAlarm(String alarmName) {
-        int beanSize = 64;
+        int beanSize = 32;
         int whichBean;
         Bean b;
         double r = random.nextDouble();

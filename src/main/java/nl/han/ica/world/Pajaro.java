@@ -9,6 +9,8 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.world.Beans.Bean;
 import nl.han.ica.world.tiles.BoardsTile;
+import processing.core.PGraphics;
+import processing.core.PImage;
 import processing.core.PVector;
 
 import java.util.List;
@@ -92,7 +94,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 //						System.out.println(world.getTileMap().getTileOnIndex(0, 21) + " 5");
 //						System.out.println((getX() + getHeight()) / world.getTileSize() + " test");
 
-						
+
 
 						// 22 - 30
 						System.out.println(world.getHeight() / world.getTileSize() + " " + world.getWidth() / world.getTileSize());
