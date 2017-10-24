@@ -24,6 +24,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	final int size = 32;
 	private final BeanWorld world;
 	private LookingSide side;
+	private Tile tile;
 	
 	/**
 	 * Constructor
@@ -58,8 +59,12 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 				setX((float) Math.ceil(getX() / world.getTileSize()) * world.getTileSize());
 			}
 		} else if (getxSpeed() > 0) {
-			Tile tile = world.getTileMap().getTileOnIndex((int) getX() / world.getTileSize() + 2,
-					world.getWorldHeight() / world.getTileSize() - 1);
+			int test = world.getWorldHeight() / world.getTileSize();
+			if(((int) getX() / world.getTileSize() + 2) < test) {
+				System.out.println(getX() <= (world.getWidth() - world.getTileSize()));
+				tile = world.getTileMap().getTileOnIndex((int) getX() / world.getTileSize() + 2,
+						world.getWorldHeight() / world.getTileSize() - 1);
+			}
 			if (tile instanceof EmptyTile) {
 				setSpeed(0);
 				setX((float) Math.floor(getX() / world.getTileSize()) * world.getTileSize());
