@@ -1,17 +1,13 @@
 package nl.han.ica.world;
 
-import nl.han.ica.OOPDProcessingEngineHAN.Collision.CollidedTile;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
-import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithTiles;
-import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.EmptyTile;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.Tile;
 import nl.han.ica.world.Beans.Bean;
-import nl.han.ica.world.tiles.BoardsTile;
-import processing.core.PVector;
+import processing.core.PConstants;
 
 import java.util.List;
 
@@ -75,14 +71,14 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	@Override
 	public void keyPressed(int keyCode, char key) {
 		final int speed = 5;
-		if (keyCode == world.LEFT) {
+		if (keyCode == PConstants.LEFT) {
 			setDirectionSpeed(270, speed);
 			setCurrentFrameIndex(0);
 			side = LookingSide.LEFT;
-		} else if (keyCode == world.UP || key == ' ') {
+		} else if (keyCode == PConstants.UP || key == ' ') {
 			Spit s = new Spit(world, 20, side);
 			world.addGameObject(s, getX(), getY() + ((getHeight() / 2) / 2));
-		} else if (keyCode == world.RIGHT) {
+		} else if (keyCode == PConstants.RIGHT) {
 			setDirectionSpeed(90, speed);
 			setCurrentFrameIndex(2);
 			side = LookingSide.RIGHT;

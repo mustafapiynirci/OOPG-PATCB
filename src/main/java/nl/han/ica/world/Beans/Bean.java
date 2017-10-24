@@ -19,7 +19,7 @@ import java.util.List;
 public class Bean extends AnimatedSpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles {
 
     protected int beanSize;
-    protected int spriteFrameCountStart = 0;
+    protected int spriteFrame = 0;
     protected final BeanWorld world;
 
     public Bean(BeanWorld world, int beanSize, String spriteUrl, int spriteSlices) {
@@ -61,6 +61,10 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithGameObj
             System.out.println("Deleted bean");
         }
         getScore();
+        spriteFrame++;
+        if (spriteFrame == 40)
+        	spriteFrame = 0;
+        setCurrentFrameIndex(spriteFrame/10);
     }
 
     public int getScore() {
