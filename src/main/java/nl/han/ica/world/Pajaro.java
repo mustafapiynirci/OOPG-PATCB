@@ -7,10 +7,10 @@ import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
+import nl.han.ica.OOPDProcessingEngineHAN.Tile.EmptyTile;
+import nl.han.ica.OOPDProcessingEngineHAN.Tile.Tile;
 import nl.han.ica.world.Beans.Bean;
 import nl.han.ica.world.tiles.BoardsTile;
-import processing.core.PGraphics;
-import processing.core.PImage;
 import processing.core.PVector;
 
 import java.util.List;
@@ -19,9 +19,8 @@ import java.util.List;
  * @author Ralph Niels
  *         De spelerklasse (het paarse visje)
  */
-public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles {
+public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameObjects {
 	
-//	final int size = 64;
 	final int size = 32;
 	private final BeanWorld world;
 	private LookingSide side;
@@ -50,7 +49,22 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 			world.deleteGameObject(this);
 			System.out.println("Pajaro died");
 		}
-//		walkable();
+		
+		if (getxSpeed() < 0) {
+			Tile tile = world.getTileMap().getTileOnIndex((int) getX() / world.getTileSize(),
+					world.getWorldHeight() / world.getTileSize() - 1);
+			if (tile instanceof EmptyTile) {
+				setSpeed(0);
+				setX((float) Math.ceil(getX() / world.getTileSize()) * world.getTileSize());
+			}
+		} else if (getxSpeed() > 0) {
+			Tile tile = world.getTileMap().getTileOnIndex((int) getX() / world.getTileSize() + 2,
+					world.getWorldHeight() / world.getTileSize() - 1);
+			if (tile instanceof EmptyTile) {
+				setSpeed(0);
+				setX((float) Math.floor(getX() / world.getTileSize()) * world.getTileSize());
+			}
+		}
 	}
 	
 	@Override
@@ -60,7 +74,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 			setDirectionSpeed(270, speed);
 			setCurrentFrameIndex(0);
 			side = LookingSide.LEFT;
-		} else if (keyCode == world.UP && key == ' ' || key == ' ') {
+		} else if (keyCode == world.UP || key == ' ') {
 			Spit s = new Spit(world, 20, side);
 			world.addGameObject(s, getX(), getY() + ((getHeight() / 2) / 2));
 		} else if (keyCode == world.RIGHT) {
@@ -69,47 +83,16 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 			side = LookingSide.RIGHT;
 		}
 	}
-
+	
 	@Override
 	public void keyReleased(int keyCode, char key) {
 		setSpeed(0);
 	}
-
 	
 	@Override
-	public void tileCollisionOccurred(List<CollidedTile> collidedTiles) {
-		PVector vector;
-
-		for (CollidedTile ct : collidedTiles) {
-			if (ct.theTile instanceof BoardsTile) {
-				if (ct.collisionSide == ct.TOP) {
-					try {
-						vector = world.getTileMap().getTilePixelLocation(ct.theTile);
-						setY(vector.y - getHeight());
-//						System.out.println(world.getTileMap().getTileOnIndex(0,0) + " 0");
-//						System.out.println(world.getTileMap().getTileOnIndex(0,1) + " 1");
-//						System.out.println(world.getTileMap().getTileOnIndex(0,(world.getHeight() / world.getTileSize()) - 1) + " 2");
-//						System.out.println((world.getHeight() / world.getTileSize()) - 1 + " tesst");
-//						System.out.println(world.getTileMap().getTileOnIndex((int) ((world.getWidth() / getX())), 21) + " 5");
-//						System.out.println(world.getTileMap().getTileOnIndex(0, 21) + " 5");
-//						System.out.println((getX() + getHeight()) / world.getTileSize() + " test");
-
-
-
-						// 22 - 30
-						System.out.println(world.getHeight() / world.getTileSize() + " " + world.getWidth() / world.getTileSize());
-					} catch (TileNotFoundException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-	}
-
-	@Override
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
-		for(GameObject g : collidedGameObjects) {
-			if(g instanceof Bean) {
+		for (GameObject g : collidedGameObjects) {
+			if (g instanceof Bean) {
 				System.out.println("Game Over");
 				world.gameOver();
 			}
