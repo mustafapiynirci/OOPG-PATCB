@@ -1,0 +1,5 @@
+Hieronder kun je alle aanpassingen vinden die gedaan zijn aan de engine uiteraard met overleg.
+
+Reden voor aanpassing: Om de sprite x en y positie aan te passen moesten we een private variabele opvragen. Hiervoor hebben we een getter voor toegevoegd.
+Welke bestand aangepast: AnimatedSpriteObject.java
+Regels toegevoegd: 87-89
