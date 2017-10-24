@@ -41,11 +41,6 @@ public class BeanSpawner implements IAlarmListener {
         Bean b;
         double r = random.nextDouble();
 
-//        if (r < 0.1) { whichBean = 0; }
-//        else if (r < 0.25) { whichBean = 1; }
-//        else if (r < 0.50) { whichBean = 2; }
-//        else { whichBean = 3; }
-
         if (r < 0.30) { whichBean = 2; }
         else { whichBean = 3; }
 

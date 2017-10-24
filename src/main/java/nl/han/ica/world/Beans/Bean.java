@@ -8,6 +8,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.world.BeanWorld;
+import nl.han.ica.world.Spit;
 import nl.han.ica.world.tiles.BoardsTile;
 import processing.core.PVector;
 
@@ -33,7 +34,11 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithGameObj
 
     @Override
     public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
-
+//        for (GameObject g : world.getGameObjectItems()) {
+//            if (g instanceof Spit) {
+//                world.deleteGameObject(this);
+//            }
+//        }
     }
 
     @Override

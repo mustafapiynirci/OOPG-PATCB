@@ -34,7 +34,6 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 		super(new Sprite("src/main/java/nl/han/ica/world/media/pajaro.png"), 4);
 		this.world = world;
 		setCurrentFrameIndex(1);
-//		setGravity(1);
 	}
 	
 	@Override
@@ -60,7 +59,6 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 			setCurrentFrameIndex(0);
 			side = LookingSide.LEFT;
 		} else if (keyCode == world.UP && key == ' ' || key == ' ') {
-			System.out.println(side);
 			Spit s = new Spit(world, 20, side);
 			world.addGameObject(s, getX(), getY() + ((getHeight() / 2) / 2));
 		} else if (keyCode == world.RIGHT) {
@@ -93,6 +91,8 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 //						System.out.println(world.getTileMap().getTileOnIndex((int) ((world.getWidth() / getX())), 21) + " 5");
 //						System.out.println(world.getTileMap().getTileOnIndex(0, 21) + " 5");
 //						System.out.println((getX() + getHeight()) / world.getTileSize() + " test");
+
+						
 
 						// 22 - 30
 						System.out.println(world.getHeight() / world.getTileSize() + " " + world.getWidth() / world.getTileSize());

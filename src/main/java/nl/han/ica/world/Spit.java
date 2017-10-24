@@ -5,6 +5,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.world.Beans.Bean;
+import nl.han.ica.world.Beans.RainbowBean;
 
 import java.util.List;
 
@@ -39,6 +40,9 @@ public class Spit extends AnimatedSpriteObject implements ICollidableWithGameObj
         for(GameObject g : collidedGameObjects) {
             if(g instanceof Bean) {
                 System.out.println(((Bean) g).getScore());
+                if(g instanceof RainbowBean) {
+                    ((RainbowBean) g).popBean();
+                }
                 world.deleteGameObject(g);
                 world.deleteGameObject(this);
             }
