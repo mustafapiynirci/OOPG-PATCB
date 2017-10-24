@@ -83,4 +83,8 @@ public abstract class AnimatedSpriteObject extends SpriteObject {
 	public void setTotalFrames(int totalFrames) {
 		this.totalFrames = totalFrames;
 	}
+
+	public Rectangle getCurrentFrame() {
+		return currentFrame;
+	}
 }
