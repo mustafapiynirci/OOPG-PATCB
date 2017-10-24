@@ -10,6 +10,8 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.world.BeanWorld;
 import nl.han.ica.world.Spit;
 import nl.han.ica.world.tiles.BoardsTile;
+import processing.core.PGraphics;
+import processing.core.PImage;
 import processing.core.PVector;
 
 import java.util.List;
@@ -39,6 +41,17 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithGameObj
 //                world.deleteGameObject(this);
 //            }
 //        }
+    }
+
+    /**
+     * Sprite positie aanpassen zodat het niet begint op 0,0 van het object
+     * @param g
+     *      Processing object
+     */
+    @Override
+    public void draw(PGraphics g) {
+        PImage img = getImage().get(getCurrentFrame().x, getCurrentFrame().y, getCurrentFrame().width, getCurrentFrame().height);
+        g.image(img, x - (int) Math.ceil((getHeight() / 2)), y - (int) Math.ceil((getHeight() / 3)));
     }
 
     @Override
