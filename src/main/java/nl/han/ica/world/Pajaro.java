@@ -57,7 +57,6 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 		} else if (getxSpeed() > 0) {
 			int test = world.getWorldHeight() / world.getTileSize();
 			if(((int) getX() / world.getTileSize() + 2) < test) {
-				System.out.println(getX() <= (world.getWidth() - world.getTileSize()));
 				tile = world.getTileMap().getTileOnIndex((int) getX() / world.getTileSize() + 2,
 						world.getWorldHeight() / world.getTileSize() - 1);
 			}
