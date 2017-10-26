@@ -5,3 +5,4 @@
 .log
 .ctxt
 /target
+src/main/java/nl/han/ica/world/media/highscore.txt
