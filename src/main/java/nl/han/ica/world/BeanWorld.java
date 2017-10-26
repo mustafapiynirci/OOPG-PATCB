@@ -162,15 +162,6 @@ public class BeanWorld extends GameEngine {
 	 * @param dashboardHeight
 	 *            Gewenste hoogte van dashboard
 	 */
-//	private void createDashboard(int dashboardWidth, int dashboardHeight) {
-//		Dashboard dashboard = new Dashboard(0, 300, dashboardWidth, dashboardHeight);
-//		Dashboard scoreDashboard = new Dashboard(0, 100, dashboardWidth, dashboardHeight);
-//		highscoreTekst = new TextObject("");
-//		currentScoreTekst = new TextObject("");
-//		dashboard.addGameObject(highscoreTekst);
-//		dashboard.addGameObject(currentScoreTekst);
-//		addDashboard(dashboard);
-//	}
 	private void createDashboard(int dashboardWidth,int dashboardHeight) {
 		Dashboard highScoreDashboard = new Dashboard(0,0, dashboardWidth/2, dashboardHeight);
 		System.out.println(dashboardWidth/2);
