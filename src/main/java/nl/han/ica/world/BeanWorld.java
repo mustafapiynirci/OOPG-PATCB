@@ -12,6 +12,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Sound.Sound;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
+import nl.han.ica.world.Beans.Bean;
 import nl.han.ica.world.tiles.BoardsTile;
 import processing.core.PApplet;
 
@@ -29,11 +30,16 @@ public class BeanWorld extends GameEngine {
 	private Pajaro pajaro;
 	private int worldWidth, worldHeight, tileSize;
 	private ArrayList<Alarm> alarms = new ArrayList<>();
+	private ArrayList<Bean> beans = new ArrayList<>();
 	
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "nl.han.ica.world.BeanWorld" });
 	}
-	
+
+	public ArrayList<Bean> getBeans() {
+		return beans;
+	}
+
 	/**
 	 * Deze methode voegt een alarm toe aan een alarm lijst
 	 * 

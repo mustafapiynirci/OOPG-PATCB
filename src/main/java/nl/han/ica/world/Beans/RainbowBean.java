@@ -12,13 +12,10 @@ public class RainbowBean extends Bean implements IAlarmListener {
     }
 
     public void popBean() {
-//        for (GameObject g : world.getGameObjectItems()) {
-//            System.out.println(g.getHeight());
-//            if(g instanceof Bean) {
-//                System.out.println("50 punten!");
-//                world.deleteGameObject(g);
-//            }
-//        }
+        for(GameObject g : world.getBeans()) {
+            System.out.println("50 punten!");
+            world.deleteGameObject(g);
+        }
     }
 
     @Override

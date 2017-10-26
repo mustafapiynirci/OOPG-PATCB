@@ -42,8 +42,10 @@ public class Spit extends AnimatedSpriteObject implements ICollidableWithGameObj
                 System.out.println(((Bean) g).getScore());
                 if(g instanceof RainbowBean) {
                     ((RainbowBean) g).popBean();
+                } else {
+                    System.out.println("No rainbow");
+                    world.deleteGameObject(g);
                 }
-                world.deleteGameObject(g);
                 world.deleteGameObject(this);
             }
         }

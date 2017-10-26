@@ -32,6 +32,8 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithGameObj
          */
         setHeight(beanSize);
         setWidth(beanSize);
+
+        world.getBeans().add(this);
     }
 
     @Override
@@ -58,7 +60,6 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithGameObj
     public void update() {
         if (getY() >= world.getHeight()) {
             world.deleteGameObject(this);
-            System.out.println("Deleted bean");
         }
         getScore();
         spriteFrame++;
