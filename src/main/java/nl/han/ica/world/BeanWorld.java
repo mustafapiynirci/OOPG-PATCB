@@ -7,6 +7,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Alarm.Alarm;
 import nl.han.ica.OOPDProcessingEngineHAN.Dashboard.Dashboard;
 import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
+import nl.han.ica.OOPDProcessingEngineHAN.Persistence.FilePersistence;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.IPersistence;
 import nl.han.ica.OOPDProcessingEngineHAN.Sound.Sound;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
@@ -24,11 +25,11 @@ public class BeanWorld extends GameEngine {
 	
 	private Sound backgroundSound;
 	private Sound bubblePopSound;
-	private TextObject dashboardText;
+	private TextObject highscoreTekst, currentScoreTekst;
 	private BeanSpawner beanSpawner;
-	// private IPersistence persistence;
+	private IPersistence persistence;
 	private Pajaro pajaro;
-	private int worldWidth, worldHeight, tileSize;
+	private int worldWidth, worldHeight, tileSize, totalHighscore, currentScore;
 	private ArrayList<Alarm> alarms = new ArrayList<>();
 	private ArrayList<Bean> beans = new ArrayList<>();
 	
@@ -88,14 +89,31 @@ public class BeanWorld extends GameEngine {
 		tileSize = 32;
 		
 		initializeSound();
-		createDashboard(worldWidth, worldWidth);
+		createDashboard(worldWidth, 100);
 		initializeTileMap();
+		initializePersistence();
 		createObjects();
 		createBeanSpawner();
 		createViewWithoutViewport(worldWidth, worldHeight);
 		
 	}
-	
+
+	private void initializePersistence() {
+		persistence = new FilePersistence("main/java/nl/han/ica/world/media/highscore.txt");
+		if (persistence.fileExists()) {
+			totalHighscore = Integer.parseInt(persistence.loadDataString());
+			refreshDasboardText();
+		}
+	}
+
+	public int getCurrentScore() {
+		return currentScore;
+	}
+
+	public void setCurrentScore(int currentScore) {
+		this.currentScore = currentScore;
+	}
+
 	/**
 	 * Creeërt de view zonder viewport
 	 * 
@@ -130,13 +148,6 @@ public class BeanWorld extends GameEngine {
 	}
 	
 	/**
-	 * Maakt de spawner voor de bellen aan
-	 */
-	// public void createBubbleSpawner() {
-	// bubbleSpawner=new BubbleSpawner(this,bubblePopSound,2);
-	// }
-	
-	/**
 	 * Maakt de spawner voor de bonen aan
 	 */
 	public void createBeanSpawner() {
@@ -151,11 +162,25 @@ public class BeanWorld extends GameEngine {
 	 * @param dashboardHeight
 	 *            Gewenste hoogte van dashboard
 	 */
-	private void createDashboard(int dashboardWidth, int dashboardHeight) {
-		Dashboard dashboard = new Dashboard(0, 300, dashboardWidth, dashboardHeight);
-		dashboardText = new TextObject("");
-		dashboard.addGameObject(dashboardText);
-		addDashboard(dashboard);
+//	private void createDashboard(int dashboardWidth, int dashboardHeight) {
+//		Dashboard dashboard = new Dashboard(0, 300, dashboardWidth, dashboardHeight);
+//		Dashboard scoreDashboard = new Dashboard(0, 100, dashboardWidth, dashboardHeight);
+//		highscoreTekst = new TextObject("");
+//		currentScoreTekst = new TextObject("");
+//		dashboard.addGameObject(highscoreTekst);
+//		dashboard.addGameObject(currentScoreTekst);
+//		addDashboard(dashboard);
+//	}
+	private void createDashboard(int dashboardWidth,int dashboardHeight) {
+		Dashboard highScoreDashboard = new Dashboard(0,0, dashboardWidth/2, dashboardHeight);
+		System.out.println(dashboardWidth/2);
+		Dashboard currentScoreDashboard = new Dashboard((dashboardWidth/2)/2, 0, dashboardWidth, dashboardHeight);
+		highscoreTekst = new TextObject("");
+		currentScoreTekst = new TextObject("");
+		highScoreDashboard.addGameObject(highscoreTekst);
+		currentScoreDashboard.addGameObject(currentScoreTekst);
+		addDashboard(highScoreDashboard);
+		addDashboard(currentScoreDashboard);
 	}
 	
 	/**
@@ -193,7 +218,8 @@ public class BeanWorld extends GameEngine {
 	 * Laat de "Game Over" bericht zien op het scherm
 	 */
 	public void showGameOver() {
-		dashboardText.setText("Game Over");
+		highscoreTekst.setText("Game Over");
+		currentScoreTekst.setText("");
 	}
 	
 	public void clearAllGameObjects() {
@@ -203,18 +229,11 @@ public class BeanWorld extends GameEngine {
 	/**
 	 * Vernieuwt het dashboard
 	 */
-	// private void refreshDasboardText() {
-	// dashboardText.setText("Bubbles popped: " + bubblesPopped);
-	// }
-	
-	/**
-	 * Verhoogt de teller voor het aantal
-	 * geknapte bellen met 1
-	 */
-	// public void increaseBubblesPopped() {
-	// bubblesPopped++;
-	// persistence.saveData(Integer.toString(bubblesPopped));
-	// refreshDasboardText();
-	// }
-	
+	 public void refreshDasboardText() {
+		 if(currentScore > totalHighscore) {
+			 persistence.saveData(Integer.toString(currentScore));
+		 }
+		 highscoreTekst.setText("Highscore: " + totalHighscore);
+		 currentScoreTekst.setText("Score: " + currentScore);
+	 }
 }
