@@ -20,6 +20,9 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	final int size = 32;
 	private final BeanWorld world;
 	private LookingSide side;
+	private PajaroState state;
+	private boolean leftPress, rightPress, upPress, spacePress, shootPress;
+	private Spit spit;
 	
 	/**
 	 * Constructor
@@ -32,61 +35,83 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 		this.world = world;
 		setCurrentFrameIndex(2);
 		side = LookingSide.RIGHT;
+		state = PajaroState.IDLE;
 	}
 	
 	@Override
 	public void update() {
-		if (getX() <= 0) {
-			setxSpeed(0);
-			setX(0);
-		} else if (getX() >= world.getWidth() - size) {
-			setxSpeed(0);
-			setX(world.getWidth() - size);
-		} else if (getY() >= (world.getHeight() + getHeight())) {
-			world.deleteGameObject(this);
-			System.out.println("Pajaro died");
-		}
+		final int speed = 4;
 		
-		if (getxSpeed() < 0) {
-			Tile tile = world.getTileMap().getTileOnIndex((int) getX() / world.getTileSize(),
-					world.getWorldHeight() / world.getTileSize() - 1);
-			if (tile instanceof EmptyTile) {
-				setSpeed(0);
-				setX((float) Math.ceil(getX() / world.getTileSize()) * world.getTileSize());
+		if (state == PajaroState.IDLE) {
+			if (shootPress) {
+				float spitX = getX() + getWidth() / 4, spitY = getY() + getHeight() / 4;
+				spit = new Spit(world, this, side, world.getTileSize(), spitX, spitY);
+				world.addGameObject(spit, spitX, spitY);
+				state = PajaroState.EXTENDING;
+			} else if (leftPress) {
+				if (getX() - speed >= 0) {
+					Tile tile = world.getTileMap().getTileOnIndex((int) getX() / world.getTileSize(),
+							world.getWorldHeight() / world.getTileSize() - 1);
+					if (!(tile instanceof EmptyTile)) {
+						side = LookingSide.LEFT;
+						setX(getX() - speed);
+						setCurrentFrameIndex(0);
+					}
+				}
+			} else if (rightPress) {
+				if (getX() + speed + size <= world.getWorldWidth()) {
+//					System.out.println(getX() + speed + size);
+//					System.out.println(world.getWorldWidth());
+					Tile tile = world.getTileMap().getTileOnIndex((int) getX() / world.getTileSize() + 2,
+							world.getWorldHeight() / world.getTileSize() - 1);
+					if (!(tile instanceof EmptyTile)) {
+						side = LookingSide.RIGHT;
+						setX(getX() + speed);
+						setCurrentFrameIndex(2);
+					}
+				}
 			}
-		} else if (getxSpeed() > 0 && (getX() > (world.getWidth() - getWidth()))) {
-			setSpeed(0);
-			setX((float) Math.floor(getX() / world.getTileSize()) * world.getTileSize());
-		} else if (getxSpeed() > 0) {
-			Tile tile = world.getTileMap().getTileOnIndex((int) getX() / world.getTileSize() + 2,
-					world.getWorldHeight() / world.getTileSize() - 1);
-			if (tile instanceof EmptyTile) {
-				setSpeed(0);
-				setX((float) Math.floor(getX() / world.getTileSize()) * world.getTileSize());
+		} else if (state == PajaroState.EXTENDING) {
+			if (!shootPress) {
+				state = PajaroState.RETRACTING;
+				spit.retract();
 			}
 		}
+	}
+
+	public void retracted() {
+		state = PajaroState.IDLE;
+		spit = null;
 	}
 	
 	@Override
 	public void keyPressed(int keyCode, char key) {
-		final int speed = 4;
 		if (keyCode == PConstants.LEFT) {
-			setDirectionSpeed(270, speed);
-			setCurrentFrameIndex(0);
-			side = LookingSide.LEFT;
-		} else if (keyCode == PConstants.UP || key == ' ') {
-			Spit s = new Spit(world, side, world.getTileSize(), getX() + getWidth() / 4, getY() + getHeight() / 4);
-			world.addGameObject(s, getX() + getWidth() / 4, getY() + getHeight() / 4);
+			leftPress = true;
+		} else if (keyCode == PConstants.UP) {
+			upPress = true;
+			shootPress = upPress || spacePress;
+		} else if (key == ' ') {
+			spacePress = true;
+			shootPress = upPress || spacePress;
 		} else if (keyCode == PConstants.RIGHT) {
-			setDirectionSpeed(90, speed);
-			setCurrentFrameIndex(2);
-			side = LookingSide.RIGHT;
+			rightPress = true;
 		}
 	}
 	
 	@Override
 	public void keyReleased(int keyCode, char key) {
-		setSpeed(0);
+		if (keyCode == PConstants.LEFT) {
+			leftPress = false;
+		} else if (keyCode == PConstants.UP) {
+			upPress = false;
+			shootPress = upPress || spacePress;
+		} else if (key == ' ') {
+			spacePress = false;
+			shootPress = upPress || spacePress;
+		} else if (keyCode == PConstants.RIGHT) {
+			rightPress = false;
+		}
 	}
 	
 	@Override

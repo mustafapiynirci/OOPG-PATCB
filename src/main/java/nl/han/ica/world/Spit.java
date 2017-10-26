@@ -12,11 +12,14 @@ import java.util.List;
 public class Spit extends GameObject implements ICollidableWithGameObjects {
 	
 	private BeanWorld world;
+	private Pajaro pajaro;
 	private LookingSide side;
 	private float startX, startY;
+	private boolean isRetracting;
 	
-	public Spit(BeanWorld world, LookingSide side, int spitSize, float x, float y) {
+	public Spit(BeanWorld world, Pajaro pajaro, LookingSide side, int spitSize, float x, float y) {
 		this.world = world;
+		this.pajaro = pajaro;
 		setX(x);
 		setY(y);
 		startX = x;
@@ -24,8 +27,18 @@ public class Spit extends GameObject implements ICollidableWithGameObjects {
 		setHeight(spitSize);
 		setWidth(spitSize);
 		this.side = side;
-		setySpeed(-4);
-		setxSpeed(side == LookingSide.LEFT ? -4 : 4);
+		
+		float speed = 8;
+		setySpeed(-speed);
+		setxSpeed(side == LookingSide.LEFT ? -speed : speed);
+	}
+	
+	public void retract() {
+		if (isRetracting)
+			return;
+		
+		setSpeed(getSpeed() * -4);
+		isRetracting = true;
 	}
 	
 	@Override
@@ -50,6 +63,9 @@ public class Spit extends GameObject implements ICollidableWithGameObjects {
 	
 	@Override
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
+		if (getySpeed() > 0)
+			return;
+		
 		for (GameObject g : collidedGameObjects) {
 			if (g instanceof Bean) {
 				world.setCurrentScore(world.getCurrentScore() + ((Bean) g).getScore());
@@ -59,15 +75,18 @@ public class Spit extends GameObject implements ICollidableWithGameObjects {
 					System.out.println("No rainbow");
 					world.deleteGameObject(g);
 				}
-				world.deleteGameObject(this);
+				retract();
 			}
 		}
 	}
 	
 	@Override
 	public void update() {
-		if (getY() <= (0 - getHeight()) || getX() <= (0 - getWidth()) || getX() >= (world.width + getWidth())) {
+		if (getySpeed() > 0 && getY() > pajaro.getY()) {
+			pajaro.retracted();
 			world.deleteGameObject(this);
+		} else if (getY() <= (0 - getHeight()) || getX() <= (0 - getWidth()) || getX() >= (world.width + getWidth())) {
+			retract();
 		}
 	}
 }
