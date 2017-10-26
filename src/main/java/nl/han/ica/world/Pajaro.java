@@ -75,8 +75,8 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 			setCurrentFrameIndex(0);
 			side = LookingSide.LEFT;
 		} else if (keyCode == PConstants.UP || key == ' ') {
-			Spit s = new Spit(world, side, world.getTileSize(), getX(), getY());
-			world.addGameObject(s, getX(), getY() + ((getHeight() / 2) / 2));
+			Spit s = new Spit(world, side, world.getTileSize(), getX() + getWidth() / 4, getY() + getHeight() / 4);
+			world.addGameObject(s, getX() + getWidth() / 4, getY() + getHeight() / 4);
 		} else if (keyCode == PConstants.RIGHT) {
 			setDirectionSpeed(90, speed);
 			setCurrentFrameIndex(2);

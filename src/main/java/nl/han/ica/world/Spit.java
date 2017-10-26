@@ -1,28 +1,51 @@
 package nl.han.ica.world;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
-import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
-import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.world.Beans.Bean;
 import nl.han.ica.world.Beans.RainbowBean;
+import processing.core.PConstants;
+import processing.core.PGraphics;
 
 import java.util.List;
 
-public class Spit extends AnimatedSpriteObject implements ICollidableWithGameObjects {
+public class Spit extends GameObject implements ICollidableWithGameObjects {
 	
 	private BeanWorld world;
 	private LookingSide side;
+	private float startX, startY;
 	
 	public Spit(BeanWorld world, LookingSide side, int spitSize, float x, float y) {
-		super(new Sprite("nl/han/ica/world/media/whiteCircle.png"), 1);
 		this.world = world;
 		setX(x);
 		setY(y);
+		startX = x;
+		startY = y;
 		setHeight(spitSize);
 		setWidth(spitSize);
-		setSpeed(5);
 		this.side = side;
+		setySpeed(-4);
+		setxSpeed(side == LookingSide.LEFT ? -4 : 4);
+	}
+	
+	@Override
+	public void draw(PGraphics g) {
+		// tongue outline
+		g.strokeWeight(16);
+		g.stroke(0);
+		g.line(getX() + getWidth() / 2, getY() + getHeight() / 2, startX + getWidth() / 2, startY + getHeight() / 2);
+		
+		// tongue end
+		g.fill(0xFFFF73AD);
+		g.strokeWeight(4);
+		g.stroke(0);
+		g.ellipseMode(PConstants.CORNER);
+		g.ellipse(getX(), getY(), getWidth(), getHeight());
+		
+		// tongue inline
+		g.strokeWeight(8);
+		g.stroke(0xFFFF73AD);
+		g.line(getX() + getWidth() / 2, getY() + getHeight() / 2, startX + getWidth() / 2, startY + getHeight() / 2);
 	}
 	
 	@Override
@@ -45,11 +68,6 @@ public class Spit extends AnimatedSpriteObject implements ICollidableWithGameObj
 	public void update() {
 		if (getY() <= (0 - getHeight()) || getX() <= (0 - getWidth()) || getX() >= (world.width + getWidth())) {
 			world.deleteGameObject(this);
-		}
-		if (side == LookingSide.LEFT) {
-			setX(getX() - getSpeed());
-		} else if (side == LookingSide.RIGHT) {
-			setX(getX() + getSpeed());
 		}
 	}
 }
