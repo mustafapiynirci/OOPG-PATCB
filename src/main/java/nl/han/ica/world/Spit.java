@@ -1,9 +1,7 @@
 package nl.han.ica.world;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
-import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
-import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.world.Beans.Bean;
 import nl.han.ica.world.Beans.RainbowBean;
 import processing.core.PConstants;
