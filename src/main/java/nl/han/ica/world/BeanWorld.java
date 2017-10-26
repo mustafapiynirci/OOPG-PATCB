@@ -156,7 +156,7 @@ public class BeanWorld extends GameEngine {
 	 * Initialiseert de tilemap
 	 */
 	private void initializeTileMap() {
-		Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/world/media/boards.jpg");
+		Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/world/media/ground.png");
 		TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
 		
 		TileType[] tileTypes = { boardTileType };
