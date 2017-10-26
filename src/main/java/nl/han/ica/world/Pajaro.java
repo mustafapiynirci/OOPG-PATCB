@@ -20,7 +20,6 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	final int size = 32;
 	private final BeanWorld world;
 	private LookingSide side;
-//	private Tile tile;
 	
 	/**
 	 * Constructor
@@ -31,7 +30,8 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	public Pajaro(BeanWorld world) {
 		super(new Sprite("src/main/java/nl/han/ica/world/media/pajaro.png"), 4);
 		this.world = world;
-		setCurrentFrameIndex(1);
+		setCurrentFrameIndex(2);
+		side = LookingSide.RIGHT;
 	}
 	
 	@Override
@@ -69,13 +69,13 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	
 	@Override
 	public void keyPressed(int keyCode, char key) {
-		final int speed = 5;
+		final int speed = 4;
 		if (keyCode == PConstants.LEFT) {
 			setDirectionSpeed(270, speed);
 			setCurrentFrameIndex(0);
 			side = LookingSide.LEFT;
 		} else if (keyCode == PConstants.UP || key == ' ') {
-			Spit s = new Spit(world, 20, side);
+			Spit s = new Spit(world, side, world.getTileSize(), getX(), getY());
 			world.addGameObject(s, getX(), getY() + ((getHeight() / 2) / 2));
 		} else if (keyCode == PConstants.RIGHT) {
 			setDirectionSpeed(90, speed);
