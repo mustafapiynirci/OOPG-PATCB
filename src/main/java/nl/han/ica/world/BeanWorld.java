@@ -32,6 +32,7 @@ public class BeanWorld extends GameEngine {
 	private int worldWidth, worldHeight, tileSize, totalHighscore, currentScore;
 	private ArrayList<Alarm> alarms = new ArrayList<>();
 	private ArrayList<Bean> beans = new ArrayList<>();
+	private int[][] tilesMap;
 	
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "nl.han.ica.world.BeanWorld" });
@@ -182,15 +183,30 @@ public class BeanWorld extends GameEngine {
 		TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
 		
 		TileType[] tileTypes = { boardTileType };
-		
-		int tilesMap[][] = new int[worldHeight / tileSize][worldWidth / tileSize];
+		tilesMap = new int[worldHeight / tileSize][worldWidth / tileSize];
+
 		for (int i = 0; i < tilesMap.length - 1; i++) {
 			Arrays.fill(tilesMap[i], -1);
 		}
 		
 		tileMap = new TileMap(tileSize, tileTypes, tilesMap);
 	}
-	
+
+	public void resetTileMap() {
+		System.out.println("reset tilesmap");
+//		for(int i = 0; i < tilesMap[tilesMap.length - 1].length; i++) {
+//			tilesMap[tilesMap.length - 1][i] = 0;
+//		}
+		Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/world/media/ground.png");
+		TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
+		TileType[] tileTypes = { boardTileType };
+		for(int i = 0; i < tilesMap[tilesMap.length - 1].length; i++) {
+			tilesMap[tilesMap.length - 1][i] = 0;
+		}
+
+		tileMap = new TileMap(tileSize, tileTypes, tilesMap);
+	}
+
 	@Override
 	public void update() {
 		// System.out.println(alarms.size());

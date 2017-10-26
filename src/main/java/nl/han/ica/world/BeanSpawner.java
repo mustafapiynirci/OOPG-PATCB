@@ -37,20 +37,14 @@ public class BeanSpawner implements IAlarmListener {
     @Override
     public void triggerAlarm(String alarmName) {
         int beanSize = 32;
-        int whichBean;
+        int whichBean = 0;
         Bean b;
         double r = random.nextDouble();
 
-        if (r < 0.30) { whichBean = 2; }
-        else { whichBean = 3; }
-
-        System.out.println(whichBean);
+        if (r < 0.4) { whichBean = 1; }
 
         switch (whichBean) {
-            case 3:
-                b = new GreenBean(world, beanSize);
-                break;
-            case 2:
+            case 1:
                 b = new RainbowBean(world, beanSize);
                 break;
             default:
