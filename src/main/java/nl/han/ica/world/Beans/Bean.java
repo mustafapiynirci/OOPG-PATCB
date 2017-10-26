@@ -8,7 +8,6 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.world.BeanWorld;
-import nl.han.ica.world.Spit;
 import nl.han.ica.world.tiles.BoardsTile;
 import processing.core.PGraphics;
 import processing.core.PImage;
@@ -16,7 +15,7 @@ import processing.core.PVector;
 
 import java.util.List;
 
-public class Bean extends AnimatedSpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles {
+public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 
     protected int beanSize;
     protected int spriteFrame = 0;
@@ -26,7 +25,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithGameObj
         super(new Sprite(spriteUrl), spriteSlices);
         this.beanSize = beanSize;
         this.world=world;
-        setySpeed(+beanSize/20f);
+        setySpeed(+beanSize/15f);
         /* De volgende regels zijn in een zelfgekend object nodig
             om collisiondetectie mogelijk te maken.
          */
@@ -34,15 +33,6 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithGameObj
         setWidth(beanSize);
 
         world.getBeans().add(this);
-    }
-
-    @Override
-    public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
-//        for (GameObject g : world.getGameObjectItems()) {
-//            if (g instanceof Spit) {
-//                world.deleteGameObject(this);
-//            }
-//        }
     }
 
     /**

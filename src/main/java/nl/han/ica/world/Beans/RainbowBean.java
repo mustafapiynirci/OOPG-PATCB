@@ -1,6 +1,5 @@
 package nl.han.ica.world.Beans;
 
-import nl.han.ica.OOPDProcessingEngineHAN.Alarm.IAlarmListener;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.world.BeanWorld;
 

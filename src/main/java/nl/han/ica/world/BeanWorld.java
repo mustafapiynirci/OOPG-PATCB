@@ -105,6 +105,7 @@ public class BeanWorld extends GameEngine {
 			totalHighscore = Integer.parseInt(persistence.loadDataString());
 			refreshDasboardText();
 		}
+		highscoreTekst.setText("Highscore: " + totalHighscore);
 	}
 
 	public int getCurrentScore() {
@@ -113,6 +114,7 @@ public class BeanWorld extends GameEngine {
 
 	public void setCurrentScore(int currentScore) {
 		this.currentScore = currentScore;
+		refreshDasboardText();
 	}
 
 	/**
@@ -165,7 +167,6 @@ public class BeanWorld extends GameEngine {
 	 */
 	private void createDashboard(int dashboardWidth,int dashboardHeight) {
 		Dashboard highScoreDashboard = new Dashboard(0,0, dashboardWidth/2, dashboardHeight);
-		System.out.println(dashboardWidth/2);
 		Dashboard currentScoreDashboard = new Dashboard((dashboardWidth/2)/2, 0, dashboardWidth, dashboardHeight);
 		highscoreTekst = new TextObject("");
 		currentScoreTekst = new TextObject("");
@@ -239,8 +240,8 @@ public class BeanWorld extends GameEngine {
 	 public void refreshDasboardText() {
 		 if(currentScore > totalHighscore) {
 			 persistence.saveData(Integer.toString(currentScore));
+			 highscoreTekst.setText("Highscore: " + currentScore);
 		 }
-		 highscoreTekst.setText("Highscore: " + totalHighscore);
 		 currentScoreTekst.setText("Score: " + currentScore);
 	 }
 }
