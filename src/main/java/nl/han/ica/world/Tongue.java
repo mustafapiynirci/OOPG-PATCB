@@ -9,7 +9,7 @@ import processing.core.PGraphics;
 
 import java.util.List;
 
-public class Spit extends GameObject implements ICollidableWithGameObjects {
+public class Tongue extends GameObject implements ICollidableWithGameObjects {
 	
 	private BeanWorld world;
 	private Pajaro pajaro;
@@ -17,7 +17,7 @@ public class Spit extends GameObject implements ICollidableWithGameObjects {
 	private float startX, startY;
 	private boolean isRetracting;
 	
-	public Spit(BeanWorld world, Pajaro pajaro, LookingSide side, int spitSize, float x, float y) {
+	public Tongue(BeanWorld world, Pajaro pajaro, LookingSide side, int spitSize, float x, float y) {
 		this.world = world;
 		this.pajaro = pajaro;
 		setX(x);

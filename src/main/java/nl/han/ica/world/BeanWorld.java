@@ -44,17 +44,17 @@ public class BeanWorld extends GameEngine {
 	}
 
 	/**
-	 * Deze methode voegt een alarm toe aan een alarm lijst
-	 * 
+	 * Deze methode voegt een alarm toe aan een alarm
+	 *
 	 * @param a
-	 *            Deze parameter moet een object van het type Alarm bevatten.
+	 * 		Deze parameter moet een object van het type Alarm bevatten.
 	 */
 	public void addAlarmToList(Alarm a) {
 		alarms.add(a);
 	}
 	
 	/**
-	 * Stop alle alarms
+	 * Stop alle alarms in een lijst
 	 */
 	public void stopAllAlarms() {
 		for (Alarm a : alarms) {
@@ -65,41 +65,49 @@ public class BeanWorld extends GameEngine {
 	/**
 	 * Deze methode geeft de grootte van tile terug
 	 * 
-	 * @return tileSize
+	 * @return grondstuk grootte
 	 */
 	public int getTileSize() {
 		return tileSize;
 	}
-	
+
+	/**
+	 * Deze methode geeft de breedte van de wereld terug
+	 *
+	 * @return wereld breedte
+	 */
 	public int getWorldWidth() {
 		return worldWidth;
 	}
-	
+
+	/**
+	 * Deze methode geeft de hoogte van de wereld terug
+	 *
+	 * @return wereld hoogte
+	 */
 	public int getWorldHeight() {
 		return worldHeight;
 	}
 	
 	/**
-	 * In deze methode worden de voor het spel
-	 * noodzakelijke zaken geïnitialiseerd
+	 * In deze methode worden de voor het spel noodzakelijke zaken geïnitialiseerd
 	 */
 	@Override
 	public void setupGame() {
-		
 		worldWidth = 960;
 		worldHeight = 704;
 		tileSize = 32;
-		
-//		initializeSound();
 		createDashboard(worldWidth, 100);
 		initializeTileMap();
 		initializePersistence();
 		createObjects();
 		createBeanSpawner();
 		createViewWithoutViewport(worldWidth, worldHeight);
-		
 	}
 
+	/**
+	 * Deze methode initialiseert de persistence
+	 */
 	private void initializePersistence() {
 		persistence = new FilePersistence("main/java/nl/han/ica/world/media/highscore.txt");
 		if (persistence.fileExists()) {
@@ -109,10 +117,21 @@ public class BeanWorld extends GameEngine {
 		highscoreTekst.setText("Highscore: " + totalHighscore);
 	}
 
+	/**
+	 * Deze methode geeft de huidige score terug
+	 *
+	 * @return huidige score
+	 */
 	public int getCurrentScore() {
 		return currentScore;
 	}
 
+	/**
+	 * De methode zet de huidige score aan het megegeven parameter waarde
+	 *
+	 * @param currentScore
+	 * 			Score waar je de huidige score aan gelijk wil zetten
+	 */
 	public void setCurrentScore(int currentScore) {
 		this.currentScore = currentScore;
 		refreshDasboardText();
@@ -129,7 +148,6 @@ public class BeanWorld extends GameEngine {
 	private void createViewWithoutViewport(int screenWidth, int screenHeight) {
 		View view = new View(screenWidth, screenHeight);
 		view.setBackground(loadImage("src/main/java/nl/han/ica/world/media/background.jpg"));
-		
 		setView(view);
 		size(screenWidth, screenHeight);
 	}
@@ -180,7 +198,7 @@ public class BeanWorld extends GameEngine {
 	}
 
 	/**
-	 * Loopt door de onderste rij van de tilesMap en zet alle waardes op een meegegeven waarde tileType
+	 * Herstelt de onderste rij van de tilemap
 	 */
 	public void resetTileMap(int tileType) {
 		for(int i = 0; i < tilesMap[tilesMap.length - 1].length; i++) {
@@ -195,7 +213,7 @@ public class BeanWorld extends GameEngine {
 	}
 	
 	/**
-	 * Alle acties doe uitgevoerd moeten worden wanneer de speler af is
+	 * Alle acties die uitgevoerd moeten worden wanneer de speler af is
 	 */
 	public void gameOver() {
 		stopAllAlarms();
