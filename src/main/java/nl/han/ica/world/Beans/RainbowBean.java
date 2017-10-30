@@ -15,6 +15,6 @@ public class RainbowBean extends Bean {
             world.setCurrentScore(world.getCurrentScore() + getScore());
             world.deleteGameObject(g);
         }
-        world.resetTileMap();
+        world.resetTileMap(0);
     }
 }

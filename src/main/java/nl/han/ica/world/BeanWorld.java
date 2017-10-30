@@ -9,11 +9,11 @@ import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.FilePersistence;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.IPersistence;
-import nl.han.ica.OOPDProcessingEngineHAN.Sound.Sound;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
 import nl.han.ica.world.Beans.Bean;
+
 import nl.han.ica.world.tiles.BoardsTile;
 import processing.core.PApplet;
 
@@ -22,9 +22,7 @@ import processing.core.PApplet;
  */
 @SuppressWarnings("serial")
 public class BeanWorld extends GameEngine {
-	
-	private Sound backgroundSound;
-	private Sound bubblePopSound;
+
 	private TextObject highscoreTekst, currentScoreTekst;
 	private BeanSpawner beanSpawner;
 	private IPersistence persistence;
@@ -33,6 +31,9 @@ public class BeanWorld extends GameEngine {
 	private ArrayList<Alarm> alarms = new ArrayList<>();
 	private ArrayList<Bean> beans = new ArrayList<>();
 	private int[][] tilesMap;
+	Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/world/media/ground.png");
+	TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
+	TileType[] tileTypes = { boardTileType };
 	
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "nl.han.ica.world.BeanWorld" });
@@ -89,7 +90,7 @@ public class BeanWorld extends GameEngine {
 		worldHeight = 704;
 		tileSize = 32;
 		
-		initializeSound();
+//		initializeSound();
 		createDashboard(worldWidth, 100);
 		initializeTileMap();
 		initializePersistence();
@@ -134,15 +135,6 @@ public class BeanWorld extends GameEngine {
 	}
 	
 	/**
-	 * Initialiseert geluid
-	 */
-	private void initializeSound() {
-		backgroundSound = new Sound(this, "src/main/java/nl/han/ica/world/media/Waterworld.mp3");
-		backgroundSound.loop(-1);
-		bubblePopSound = new Sound(this, "src/main/java/nl/han/ica/world/media/pop.mp3");
-	}
-	
-	/**
 	 * Maakt de spelobjecten aan
 	 */
 	private void createObjects() {
@@ -175,36 +167,25 @@ public class BeanWorld extends GameEngine {
 		addDashboard(highScoreDashboard);
 		addDashboard(currentScoreDashboard);
 	}
-	
+
 	/**
 	 * Initialiseert de tilemap
 	 */
 	private void initializeTileMap() {
-		Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/world/media/ground.png");
-		TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
-		
-		TileType[] tileTypes = { boardTileType };
 		tilesMap = new int[worldHeight / tileSize][worldWidth / tileSize];
-
 		for (int i = 0; i < tilesMap.length - 1; i++) {
 			Arrays.fill(tilesMap[i], -1);
 		}
-		
 		tileMap = new TileMap(tileSize, tileTypes, tilesMap);
 	}
 
-	public void resetTileMap() {
-		System.out.println("reset tilesmap");
-//		for(int i = 0; i < tilesMap[tilesMap.length - 1].length; i++) {
-//			tilesMap[tilesMap.length - 1][i] = 0;
-//		}
-		Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/world/media/ground.png");
-		TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
-		TileType[] tileTypes = { boardTileType };
+	/**
+	 * Loopt door de onderste rij van de tilesMap en zet alle waardes op een meegegeven waarde tileType
+	 */
+	public void resetTileMap(int tileType) {
 		for(int i = 0; i < tilesMap[tilesMap.length - 1].length; i++) {
-			tilesMap[tilesMap.length - 1][i] = 0;
+			tilesMap[tilesMap.length - 1][i] = tileType;
 		}
-
 		tileMap = new TileMap(tileSize, tileTypes, tilesMap);
 	}
 

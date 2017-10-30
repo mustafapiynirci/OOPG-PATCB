@@ -28,7 +28,7 @@ public class Spit extends GameObject implements ICollidableWithGameObjects {
 		setWidth(spitSize);
 		this.side = side;
 		
-		float speed = 8;
+		float speed = 15;
 		setySpeed(-speed);
 		setxSpeed(side == LookingSide.LEFT ? -speed : speed);
 	}
@@ -72,7 +72,6 @@ public class Spit extends GameObject implements ICollidableWithGameObjects {
 				if (g instanceof RainbowBean) {
 					((RainbowBean) g).popBean();
 				} else {
-					System.out.println("No rainbow");
 					world.deleteGameObject(g);
 				}
 				retract();
