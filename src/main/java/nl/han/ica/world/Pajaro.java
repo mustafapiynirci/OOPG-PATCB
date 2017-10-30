@@ -17,7 +17,9 @@ import java.util.List;
  */
 public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameObjects {
 	
-	final int size = 32;
+	private final static int rightFramesOffset = 2;
+	private final static int size = 32;
+	
 	private final BeanWorld world;
 	private LookingSide side;
 	private PajaroState state;
@@ -33,7 +35,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	public Pajaro(BeanWorld world) {
 		super(new Sprite("src/main/java/nl/han/ica/world/media/pajaro.png"), 4);
 		this.world = world;
-		setCurrentFrameIndex(2);
+		setCurrentFrameIndex(rightFramesOffset);
 		side = LookingSide.RIGHT;
 		state = PajaroState.IDLE;
 	}
@@ -44,10 +46,11 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 		
 		if (state == PajaroState.IDLE) {
 			if (shootPress) {
-				float spitX = getX() + getWidth() / 4, spitY = getY() + getHeight() / 4;
-				spit = new Spit(world, this, side, world.getTileSize(), spitX, spitY);
-				world.addGameObject(spit, spitX, spitY);
+				spit = new Spit(world, this, side, world.getTileSize(),
+						getX() + getWidth() / 4 + (side == LookingSide.LEFT ? -20 : 20), getY() + getHeight() / 4);
+				world.addGameObject(spit, -1);
 				state = PajaroState.EXTENDING;
+				setCurrentFrameIndex((side == LookingSide.RIGHT ? rightFramesOffset : 0) + 1);
 			} else if (leftPress) {
 				if (getX() - speed >= 0) {
 					Tile tile = world.getTileMap().getTileOnIndex((int) getX() / world.getTileSize(),
@@ -59,15 +62,13 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 					}
 				}
 			} else if (rightPress) {
-				if (getX() + speed + size <= world.getWorldWidth()) {
-//					System.out.println(getX() + speed + size);
-//					System.out.println(world.getWorldWidth());
+				if (getX() + size * 2 < world.getWorldWidth()) {
 					Tile tile = world.getTileMap().getTileOnIndex((int) getX() / world.getTileSize() + 2,
 							world.getWorldHeight() / world.getTileSize() - 1);
 					if (!(tile instanceof EmptyTile)) {
 						side = LookingSide.RIGHT;
 						setX(getX() + speed);
-						setCurrentFrameIndex(2);
+						setCurrentFrameIndex(rightFramesOffset);
 					}
 				}
 			}
@@ -78,14 +79,17 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 			}
 		}
 	}
-
+	
 	public void retracted() {
 		state = PajaroState.IDLE;
 		spit = null;
+		setCurrentFrameIndex(side == LookingSide.RIGHT ? rightFramesOffset : 0);
 	}
 	
 	@Override
 	public void keyPressed(int keyCode, char key) {
+		// To improve the performance and input consistency, we only toggle the button's
+		// states here.
 		if (keyCode == PConstants.LEFT) {
 			leftPress = true;
 		} else if (keyCode == PConstants.UP) {
