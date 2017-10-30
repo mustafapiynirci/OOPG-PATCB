@@ -20,7 +20,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	protected int spriteFrame = 0;
 	protected final BeanWorld world;
 	
-	private static final int[][] scoreModel = { { 15, 1000 }, { 30, 600 }, { 50, 300 }, { 70, 100 }, { 100, 50 } };
+	private static final int[][] scoreModel = { { 10, 1000 }, { 30, 300 }, { 60, 100 }, { 90, 50 }, { 100, 10 } };
 	
 	public Bean(BeanWorld world, int beanSize, String spriteUrl, int spriteSlices) {
 		super(new Sprite(spriteUrl), spriteSlices);
@@ -62,7 +62,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	public int getScore() {
 		for (int[] i : scoreModel) {
-			if (getY() <= (world.height / 100 * i[0])) {
+			if (getY() <= ((world.getHeight() - world.getTileSize()) / 100 * i[0])) {
 				return i[1];
 			}
 		}
