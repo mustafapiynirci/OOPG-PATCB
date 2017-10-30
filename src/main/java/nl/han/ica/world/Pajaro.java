@@ -18,7 +18,9 @@ import java.util.List;
 public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameObjects {
 	
 	private final static int rightFramesOffset = 2;
+	private final static int tongueOffset = 20;
 	private final static int size = 32;
+	private final static int speed = 6;
 	
 	private final BeanWorld world;
 	private LookingSide side;
@@ -42,12 +44,11 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	
 	@Override
 	public void update() {
-		final int speed = 4;
-		
 		if (state == PajaroState.IDLE) {
 			if (shootPress) {
 				tongue = new Tongue(world, this, side, world.getTileSize(),
-						getX() + getWidth() / 4 + (side == LookingSide.LEFT ? -20 : 20), getY() + getHeight() / 4);
+						getX() + getWidth() / 4 + (side == LookingSide.LEFT ? -tongueOffset : tongueOffset),
+						getY() + getHeight() / 4);
 				world.addGameObject(tongue, -1);
 				state = PajaroState.EXTENDING;
 				setCurrentFrameIndex((side == LookingSide.RIGHT ? rightFramesOffset : 0) + 1);
