@@ -46,9 +46,9 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 		
 		if (state == PajaroState.IDLE) {
 			if (shootPress) {
-				spit = new Spit(world, this, side, world.getTileSize(), getX() + getWidth() / 4,
-						getY() + getHeight() / 4);
-				world.addGameObject(spit);
+				spit = new Spit(world, this, side, world.getTileSize(),
+						getX() + getWidth() / 4 + (side == LookingSide.LEFT ? -20 : 20), getY() + getHeight() / 4);
+				world.addGameObject(spit, -1);
 				state = PajaroState.EXTENDING;
 				setCurrentFrameIndex((side == LookingSide.RIGHT ? rightFramesOffset : 0) + 1);
 			} else if (leftPress) {
