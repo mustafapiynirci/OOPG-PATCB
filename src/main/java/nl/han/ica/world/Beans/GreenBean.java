@@ -8,4 +8,8 @@ public class GreenBean extends Bean {
         super(world, beanSize, "nl/han/ica/world/media/greenbean.png", 4);
         setCurrentFrameIndex(0);
     }
+	
+	public void pop() {
+		super.pop();
+	}
 }

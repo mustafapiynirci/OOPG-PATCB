@@ -21,6 +21,7 @@ public class Poof extends AnimatedSpriteObject {
 		else
 			//world.deleteGameObject(this);
 			setVisible(false);
+		// @TODO: make it delete it, preferably without NullPointers
 	}
 	
 }

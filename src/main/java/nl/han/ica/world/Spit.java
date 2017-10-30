@@ -68,12 +68,7 @@ public class Spit extends GameObject implements ICollidableWithGameObjects {
 		
 		for (GameObject g : collidedGameObjects) {
 			if (g instanceof Bean) {
-				world.setCurrentScore(world.getCurrentScore() + ((Bean) g).getScore());
-				if (g instanceof RainbowBean) {
-					((RainbowBean) g).popBean();
-				} else {
-					world.deleteGameObject(g);
-				}
+				((Bean) g).pop();
 				retract();
 			}
 		}
