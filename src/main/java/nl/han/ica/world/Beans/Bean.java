@@ -27,13 +27,8 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 		this.beanSize = beanSize;
 		this.world = world;
 		setySpeed(+beanSize / 15f);
-		/*
-		 * De volgende regels zijn in een zelfgekend object nodig
-		 * om collisiondetectie mogelijk te maken.
-		 */
 		setHeight(beanSize);
 		setWidth(beanSize);
-		
 		world.getBeans().add(this);
 	}
 	
@@ -45,8 +40,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	 */
 	@Override
 	public void draw(PGraphics g) {
-		PImage img = getImage().get(getCurrentFrame().x, getCurrentFrame().y, getCurrentFrame().width,
-				getCurrentFrame().height);
+		PImage img = getImage().get(getCurrentFrame().x, getCurrentFrame().y, getCurrentFrame().width, getCurrentFrame().height);
 		g.image(img, x - (int) Math.ceil((getHeight() / 2)), y - (int) Math.ceil((getHeight() / 3)));
 	}
 	

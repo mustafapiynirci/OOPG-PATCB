@@ -6,7 +6,6 @@ import nl.han.ica.world.Beans.Bean;
 import nl.han.ica.world.Beans.GreenBean;
 import nl.han.ica.world.Beans.RainbowBean;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class BeanSpawner implements IAlarmListener {
@@ -40,9 +39,7 @@ public class BeanSpawner implements IAlarmListener {
         int whichBean = 0;
         Bean b;
         double r = random.nextDouble();
-
         if (r < 0.4) { whichBean = 1; }
-
         switch (whichBean) {
             case 1:
                 b = new RainbowBean(world, beanSize);
@@ -50,13 +47,11 @@ public class BeanSpawner implements IAlarmListener {
             default:
                 b = new GreenBean(world, beanSize);
         }
-
         int lengthHelper = (world.getWidth() / world.getTileSize()) - 1;
         int[] spawnHelper = new int[lengthHelper];
         for(int i = 0; i < lengthHelper; i++) {
             spawnHelper[i] = i * world.getTileSize();
         }
-
         world.addGameObject(b, spawnHelper[random.nextInt(lengthHelper)], 0 - b.getHeight());
         startAlarm();
     }
