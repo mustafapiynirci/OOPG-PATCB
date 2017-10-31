@@ -12,8 +12,8 @@ import nl.han.ica.world.Beans.WhiteBean;
 import java.util.Random;
 
 public class BeanSpawner implements IAlarmListener {
-	private final static String[] beanTypes = { "RainbowBean", "WhiteBean", "GreenBean" };
-	private final static double[] beanChances = { 0.03, 0.1, 1 };
+	private final String[] beanTypes = { "RainbowBean", "WhiteBean", "GreenBean" };
+	private final double[] beanChances = { 0.03, 0.1, 1 };
 	private double beansPerSecond;
 	private Random random;
 	private BeanWorld world;
@@ -21,7 +21,6 @@ public class BeanSpawner implements IAlarmListener {
 	
 	/**
 	 * Constructor
-	 * 
 	 * @param world
 	 *            reference to the BeanWorld
 	 * @param beansPerSecond
@@ -44,15 +43,16 @@ public class BeanSpawner implements IAlarmListener {
 		alarm.addTarget(this);
 		alarm.start();
 	}
-	
+
+	/**
+	 * This method increases the speed of dropping beans beans
+	 */
 	public void increaseSpeed() {
-		System.out.println(beansPerSecond);
 		beansPerSecond += 0.5;
 	}
 	
 	/**
 	 * This method gets called when the alarm should go off
-	 * 
 	 * @param alarmName
 	 *            Name of the alarm
 	 */

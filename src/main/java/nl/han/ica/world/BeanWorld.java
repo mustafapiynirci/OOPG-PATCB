@@ -76,7 +76,6 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * This method returns the tile size
-	 * 
 	 * @return tileSize
 	 *         Size of the tile
 	 */
@@ -86,7 +85,6 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * This method returns the world width
-	 * 
 	 * @return wereld worldWidth
 	 *         Width of the world
 	 */
@@ -96,7 +94,6 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * This method returns the world height
-	 * 
 	 * @return worldHeight
 	 *         Height of the world
 	 */
@@ -135,9 +132,8 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * THis method returns the current highscore
-	 * 
 	 * @return currentScore
-	 *         Current scure
+	 *         Current score
 	 */
 	public int getCurrentScore() {
 		return currentScore;
@@ -145,7 +141,6 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * Tis method puts the current score to the given parameter value
-	 * 
 	 * @param currentScore
 	 *            Value that you want to set the score to
 	 */
@@ -153,7 +148,12 @@ public class BeanWorld extends GameEngine {
 		this.currentScore = currentScore;
 		refreshDasboardText();
 	}
-	
+
+	/**
+	 * Add value to score and refresh dashboard
+	 * @param score
+	 * 			value to set the current score value to
+	 */
 	public void addToScore(int score) {
 		setCurrentScore(getCurrentScore() + score);
 		refreshDasboardText();
@@ -161,7 +161,6 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * Generates the view without viewport
-	 * 
 	 * @param screenWidth
 	 *            Width of the window
 	 * @param screenHeight
@@ -176,7 +175,6 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * This method deletes a bean from GameObjects and the beans list
-	 * 
 	 * @param bean
 	 *            Bean parameter that contains an Bean object
 	 */
@@ -202,7 +200,6 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * Creates the dashboards
-	 * 
 	 * @param dashboardWidth
 	 *            Width that the dashboard should be
 	 * @param dashboardHeight
@@ -242,13 +239,15 @@ public class BeanWorld extends GameEngine {
 			}
 		}
 	}
-	
+
+	/**
+	 * Increase the speed of dropping beans every 1000 points
+	 */
 	@Override
 	public void update() {
 		if (scoreSpeedUpTrigger <= currentScore) {
 			scoreSpeedUpTrigger += 1000;
 			beanSpawner.increaseSpeed();
-			System.out.println("Speed triggered");
 		}
 	}
 	

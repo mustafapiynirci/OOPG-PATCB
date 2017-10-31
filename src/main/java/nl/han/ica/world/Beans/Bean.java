@@ -1,6 +1,5 @@
 package nl.han.ica.world.Beans;
 
-import nl.han.ica.OOPDProcessingEngineHAN.Alarm.Alarm;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.CollidedTile;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithTiles;
 import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
@@ -26,7 +25,6 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * Constructor
-	 * 
 	 * @param world
 	 *            World parameter
 	 * @param spriteUrl
@@ -45,7 +43,6 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * Sprite positie aanpassen zodat het niet begint op 0,0 van het object
-	 * 
 	 * @param g
 	 *        Processing object
 	 */
@@ -57,8 +54,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	}
 	
 	/**
-	 * This method gets called constantly and has a basic functionality like
-	 * removing
+	 * This method gets called constantly and has a basic functionality like removing
 	 * the bean and updating the sprite
 	 */
 	@Override
@@ -88,8 +84,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	}
 	
 	/**
-	 * This
-	 * 
+	 * This method deletes the bean
 	 * @param iter
 	 */
 	public void delete(Iterator<Bean> iter) {
@@ -112,7 +107,13 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 		delete();
 		createPoof();
 	}
-	
+
+	/**
+	 * This method calls all methods that needs to run when a bean gets removed from
+	 * the world but not when the tongue hits the bean
+	 * @param iter
+	 * 			iterator value
+	 */
 	public void poof(Iterator<Bean> iter) {
 		createPoof();
 		delete(iter);
@@ -120,7 +121,6 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * Returns the score score when a bean gets eaten
-	 * 
 	 * @return score
 	 *         This value contains the score
 	 */
@@ -135,7 +135,6 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * This method returns the lowest score
-	 * 
 	 * @return scoreModel
 	 *         Lowest score what a player can get when a bean gets eaten
 	 */
@@ -145,7 +144,6 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * This method gets called when Pájaro is in collision with a tile
-	 * 
 	 * @param collidedTiles
 	 *            List with all collided tiles
 	 */

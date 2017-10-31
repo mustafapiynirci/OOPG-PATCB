@@ -22,7 +22,8 @@ public class WhiteBean extends Bean {
 	}
 	
 	/**
-	 * This method calls the pop from its super
+	 * This method calls the pop from its super and
+	 * regenerates one of the tiles that was broken
 	 */
 	@Override
 	public void pop() {
