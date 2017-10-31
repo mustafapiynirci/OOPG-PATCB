@@ -55,7 +55,7 @@ public class BeanWorld extends GameEngine {
 	/**
 	 * In this method all alarms in a list gets stopped
 	 */
-	public void stopAllAlarms() {
+	private void stopAllAlarms() {
 		for (Alarm a : alarms) {
 			a.stop();
 		}
