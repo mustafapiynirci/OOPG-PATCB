@@ -17,6 +17,7 @@ public class BeanSpawner implements IAlarmListener {
 	private double beansPerSecond;
 	private Random random;
 	private BeanWorld world;
+	private Alarm alarm;
 	
 	/**
 	 * Constructor
@@ -30,18 +31,23 @@ public class BeanSpawner implements IAlarmListener {
 		this.beansPerSecond = beansPerSecond;
 		this.world = world;
 		random = new Random();
-		startAlarm();
+		startAlarm("Bean");
+	}
+
+	private void removeAlarm(Alarm alarm) {
+		world.removeAlarmFromList(alarm);
 	}
 	
-	private void startAlarm() {
-		Alarm alarm = new Alarm("New bubble", 1 / beansPerSecond + random.nextDouble());
+	private void startAlarm(String alarmName) {
+		alarm  = new Alarm(alarmName, 1 / beansPerSecond + random.nextDouble());
+		world.addAlarmToList(alarm);
 		alarm.addTarget(this);
 		alarm.start();
 	}
 	
 	public void increaseSpeed() {
 		System.out.println(beansPerSecond);
-		beansPerSecond += 0.1;
+		beansPerSecond += 0.5;
 	}
 	
 	/**
@@ -78,6 +84,7 @@ public class BeanSpawner implements IAlarmListener {
 			spawnHelper[i] = i * world.getTileSize();
 		}
 		world.addGameObject(b, spawnHelper[random.nextInt(lengthHelper)], 0 - b.getHeight());
-		startAlarm();
+		removeAlarm(alarm);
+		startAlarm("Bean");
 	}
 }

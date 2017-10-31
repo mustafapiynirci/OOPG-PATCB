@@ -27,6 +27,8 @@ import processing.core.PApplet;
  */
 @SuppressWarnings("serial")
 public class BeanWorld extends GameEngine {
+
+	public boolean test = true;
 	
 	private TextObject highscoreTekst, currentScoreTekst;
 	private BeanSpawner beanSpawner;
@@ -42,20 +44,26 @@ public class BeanWorld extends GameEngine {
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "nl.han.ica.world.BeanWorld" });
 	}
-	
+
+	/**
+	 * Get list of all beans
+	 * @return beans
+	 * 			list of all beans
+	 */
 	public ArrayList<Bean> getBeans() {
 		return beans;
 	}
 	
 	/**
-	 * In this method the alarm gets added to an alarm list
-	 * 
+	 * In this method the given alarm gets added to an alarm list
 	 * @param a
-	 *            This parameter should be an object of the type Alarm
+	 * 			This parameter should be an object of the type Alarm
 	 */
 	public void addAlarmToList(Alarm a) {
 		alarms.add(a);
 	}
+
+	public void removeAlarmFromList(Alarm a) { alarms.remove(a); }
 	
 	/**
 	 * In this method all alarms in a list gets stopped
@@ -240,7 +248,9 @@ public class BeanWorld extends GameEngine {
 		if (scoreSpeedUpTrigger <= currentScore) {
 			scoreSpeedUpTrigger += 1000;
 			beanSpawner.increaseSpeed();
+			System.out.println("Speed triggered");
 		}
+		System.out.println(alarms.size());
 	}
 	
 	/**
@@ -248,6 +258,7 @@ public class BeanWorld extends GameEngine {
 	 */
 	public void gameOver() {
 		stopAllAlarms();
+		test = false;
 		clearAllGameObjects();
 		showGameOver();
 	}

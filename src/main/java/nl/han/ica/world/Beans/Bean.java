@@ -1,5 +1,6 @@
 package nl.han.ica.world.Beans;
 
+import nl.han.ica.OOPDProcessingEngineHAN.Alarm.Alarm;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.CollidedTile;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithTiles;
 import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
