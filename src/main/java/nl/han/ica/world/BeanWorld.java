@@ -148,6 +148,11 @@ public class BeanWorld extends GameEngine {
 		refreshDasboardText();
 	}
 	
+	public void deleteBean(Bean bean) {
+		deleteGameObject(bean);
+		beans.remove(bean);
+	}
+	
 	/**
 	 * Creeërt de view zonder viewport
 	 * 

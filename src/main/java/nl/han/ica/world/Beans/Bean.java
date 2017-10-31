@@ -12,6 +12,7 @@ import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.core.PVector;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
@@ -57,7 +58,25 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	public void pop() {
 		world.addToScore(getScore());
+		delete();
+	}
+	
+	public void delete() {
+		world.deleteBean(this);
+	}
+
+	public void delete(Iterator<Bean> iter) {
+		iter.remove();
 		world.deleteGameObject(this);
+	}
+
+	public void poof() {
+		createPoof();
+		delete();
+	}
+	
+	private void createPoof() {
+		world.addGameObject(new Poof(world), getX() - 32, getY() - 32);
 	}
 	
 	public int getScore() {
@@ -82,8 +101,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 				try {
 					vector = world.getTileMap().getTilePixelLocation(ct.theTile);
 					world.getTileMap().setTile((int) vector.x / 32, (int) vector.y / 32, -1);
-					world.addGameObject(new Poof(world), getX() - 32, getY() - 32);
-					world.deleteGameObject(this);
+					poof();
 				} catch (TileNotFoundException e) {
 					e.printStackTrace();
 				}

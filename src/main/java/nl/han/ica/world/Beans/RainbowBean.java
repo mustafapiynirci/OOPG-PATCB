@@ -1,6 +1,7 @@
 package nl.han.ica.world.Beans;
 
-import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
+import java.util.Iterator;
+
 import nl.han.ica.world.BeanWorld;
 
 public class RainbowBean extends Bean {
@@ -11,10 +12,15 @@ public class RainbowBean extends Bean {
 	
 	public void pop() {
 		super.pop();
-		for (GameObject g : world.getBeans()) {
-			if (g == this) continue;
+		System.out.println(world.getBeans().size());
+		
+		Iterator<Bean> iter = world.getBeans().iterator();
+		
+		while (iter.hasNext()) {
+			Bean b = iter.next();
+			if (b == this) continue;
 			world.addToScore(getLowScore());
-			world.deleteGameObject(g);
+			b.delete(iter);
 		}
 		world.resetTileMap(0);
 	}
