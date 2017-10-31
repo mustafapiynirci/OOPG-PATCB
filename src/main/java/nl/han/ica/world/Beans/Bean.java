@@ -92,18 +92,23 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	}
 
 	/**
-	 * This method calls all methods that needs to run when a bean gets removed from the world but not when the tongue hits the bean
-	 */
-	public void poof() {
-		createPoof();
-		delete();
-	}
-
-	/**
 	 * This method creates a Poof object that animates on the current position
 	 */
 	private void createPoof() {
 		world.addGameObject(new Poof(world), getX() - 32, getY() - 32);
+	}
+
+	/**
+	 * This method calls all methods that needs to run when a bean gets removed from the world but not when the tongue hits the bean
+	 */
+	public void poof() {
+		delete();
+		createPoof();
+	}
+
+	public void poof(Iterator<Bean> iter) {
+		createPoof();
+		delete(iter);
 	}
 
 	/**
