@@ -1,7 +1,8 @@
-package nl.han.ica.world;
+package nl.han.ica.world.spawners;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Alarm.Alarm;
 import nl.han.ica.OOPDProcessingEngineHAN.Alarm.IAlarmListener;
+import nl.han.ica.world.BeanWorld;
 import nl.han.ica.world.Beans.Bean;
 import nl.han.ica.world.Beans.GreenBean;
 import nl.han.ica.world.Beans.RainbowBean;

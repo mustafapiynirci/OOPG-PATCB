@@ -1,4 +1,4 @@
-package nl.han.ica.world;
+package nl.han.ica.world.player;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
@@ -6,6 +6,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.EmptyTile;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.Tile;
+import nl.han.ica.world.BeanWorld;
 import nl.han.ica.world.Beans.Bean;
 import processing.core.PConstants;
 

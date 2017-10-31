@@ -16,6 +16,9 @@ import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
 import nl.han.ica.world.Beans.Bean;
 
+import nl.han.ica.world.effects.Poof;
+import nl.han.ica.world.player.Pajaro;
+import nl.han.ica.world.spawners.BeanSpawner;
 import nl.han.ica.world.tiles.BoardsTile;
 import processing.core.PApplet;
 

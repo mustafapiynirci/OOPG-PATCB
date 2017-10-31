@@ -1,4 +1,4 @@
-package nl.han.ica.world;
+package nl.han.ica.world.player;
 
 /**
  * This enum makes sure that 'LookinsSide' only has the given values and nothing else

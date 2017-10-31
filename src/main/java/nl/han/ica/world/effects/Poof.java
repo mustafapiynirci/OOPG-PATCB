@@ -1,7 +1,8 @@
-package nl.han.ica.world;
+package nl.han.ica.world.effects;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
+import nl.han.ica.world.BeanWorld;
 
 public class Poof extends AnimatedSpriteObject {
 	

@@ -7,7 +7,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Tile.EmptyTile;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.Tile;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.world.BeanWorld;
-import nl.han.ica.world.Poof;
+import nl.han.ica.world.effects.Poof;
 
 public class WhiteBean extends Bean {
 	

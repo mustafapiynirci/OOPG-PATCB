@@ -1,9 +1,11 @@
-package nl.han.ica.world;
+package nl.han.ica.world.player;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
+import nl.han.ica.world.BeanWorld;
 import nl.han.ica.world.Beans.Bean;
-import nl.han.ica.world.Beans.RainbowBean;
+import nl.han.ica.world.player.LookingSide;
+import nl.han.ica.world.player.Pajaro;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 
