@@ -250,7 +250,6 @@ public class BeanWorld extends GameEngine {
 			beanSpawner.increaseSpeed();
 			System.out.println("Speed triggered");
 		}
-		System.out.println(alarms.size());
 	}
 	
 	/**
