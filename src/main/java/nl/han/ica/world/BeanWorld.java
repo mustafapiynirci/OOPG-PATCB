@@ -9,6 +9,8 @@ import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.FilePersistence;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.IPersistence;
+import nl.han.ica.OOPDProcessingEngineHAN.Tile.EmptyTile;
+import nl.han.ica.OOPDProcessingEngineHAN.Tile.Tile;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
@@ -30,7 +32,6 @@ public class BeanWorld extends GameEngine {
 	private int worldWidth, worldHeight, tileSize, totalHighscore, currentScore, scoreSpeedUpTrigger;
 	private ArrayList<Alarm> alarms = new ArrayList<>();
 	private ArrayList<Bean> beans = new ArrayList<>();
-	private int[][] tilesMap;
 	Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/world/media/ground.png");
 	TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
 	TileType[] tileTypes = { boardTileType };
@@ -45,8 +46,9 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * In this method the alarm gets added to an alarm list
+	 * 
 	 * @param a
-	 * 		This parameter should be an object of the type Alarm
+	 *            This parameter should be an object of the type Alarm
 	 */
 	public void addAlarmToList(Alarm a) {
 		alarms.add(a);
@@ -63,8 +65,9 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * This method returns the tile size
+	 * 
 	 * @return tileSize
-	 * 				Size of the tile
+	 *         Size of the tile
 	 */
 	public int getTileSize() {
 		return tileSize;
@@ -72,8 +75,9 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * This method returns the world width
+	 * 
 	 * @return wereld worldWidth
-	 * 						Width of the world
+	 *         Width of the world
 	 */
 	public int getWorldWidth() {
 		return worldWidth;
@@ -81,8 +85,9 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * This method returns the world height
+	 * 
 	 * @return worldHeight
-	 * 				Height of the world
+	 *         Height of the world
 	 */
 	public int getWorldHeight() {
 		return worldHeight;
@@ -105,7 +110,8 @@ public class BeanWorld extends GameEngine {
 	}
 	
 	/**
-	 * This method initializes the percistence ands sets the dashboard value of the highscore
+	 * This method initializes the percistence ands sets the dashboard value of the
+	 * highscore
 	 */
 	private void initializePersistence() {
 		persistence = new FilePersistence("main/java/nl/han/ica/world/media/highscore.txt");
@@ -118,8 +124,9 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * THis method returns the current highscore
+	 * 
 	 * @return currentScore
-	 * 				Current scure
+	 *         Current scure
 	 */
 	public int getCurrentScore() {
 		return currentScore;
@@ -127,14 +134,15 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * Tis method puts the current score to the given parameter value
+	 * 
 	 * @param currentScore
-	 * 			Value that you want to set the score to
+	 *            Value that you want to set the score to
 	 */
 	public void setCurrentScore(int currentScore) {
 		this.currentScore = currentScore;
 		refreshDasboardText();
 	}
-
+	
 	public void addToScore(int score) {
 		setCurrentScore(getCurrentScore() + score);
 		refreshDasboardText();
@@ -142,10 +150,11 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * Generates the view without viewport
+	 * 
 	 * @param screenWidth
-	 * 			  	Width of the window
+	 *            Width of the window
 	 * @param screenHeight
-	 * 				Height of the window
+	 *            Height of the window
 	 */
 	private void createViewWithoutViewport(int screenWidth, int screenHeight) {
 		View view = new View(screenWidth, screenHeight);
@@ -153,11 +162,12 @@ public class BeanWorld extends GameEngine {
 		setView(view);
 		size(screenWidth, screenHeight);
 	}
-
+	
 	/**
 	 * This method deletes a bean from GameObjects and the beans list
+	 * 
 	 * @param bean
-	 * 			Bean parameter that contains an Bean object
+	 *            Bean parameter that contains an Bean object
 	 */
 	public void deleteBean(Bean bean) {
 		deleteGameObject(bean);
@@ -181,10 +191,11 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * Creates the dashboards
+	 * 
 	 * @param dashboardWidth
-	 * 				Width that the dashboard should be
+	 *            Width that the dashboard should be
 	 * @param dashboardHeight
-	 * 				Height the dashboard should be
+	 *            Height the dashboard should be
 	 */
 	private void createDashboard(int dashboardWidth, int dashboardHeight) {
 		Dashboard highScoreDashboard = new Dashboard(0, 0, dashboardWidth / 2, dashboardHeight);
@@ -201,7 +212,7 @@ public class BeanWorld extends GameEngine {
 	 * Initializes the tilemap
 	 */
 	private void initializeTileMap() {
-		tilesMap = new int[worldHeight / tileSize][worldWidth / tileSize];
+		int[][] tilesMap = new int[worldHeight / tileSize][worldWidth / tileSize];
 		for (int i = 0; i < tilesMap.length - 1; i++) {
 			Arrays.fill(tilesMap[i], -1);
 		}
@@ -212,10 +223,13 @@ public class BeanWorld extends GameEngine {
 	 * Regenerates the lowest row of the tilemap
 	 */
 	public void resetTileMap(int tileType) {
-		for (int i = 0; i < tilesMap[tilesMap.length - 1].length; i++) {
-			tilesMap[tilesMap.length - 1][i] = tileType;
+		for (int i = 0; i < worldWidth / tileSize; i++) {
+			Tile tile = tileMap.getTileOnIndex(i, worldHeight / tileSize - 1);
+			if (tile instanceof EmptyTile) {
+				tileMap.setTile(i, worldHeight / tileSize - 1, tileType);
+				addGameObject(new Poof(this), i * tileSize - tileSize, worldHeight - tileSize * 2);
+			}
 		}
-		tileMap = new TileMap(tileSize, tileTypes, tilesMap);
 	}
 	
 	@Override
@@ -242,7 +256,7 @@ public class BeanWorld extends GameEngine {
 		highscoreTekst.setText("Game Over");
 		currentScoreTekst.setText("");
 	}
-
+	
 	/**
 	 * This method removes all gameobjects
 	 */
