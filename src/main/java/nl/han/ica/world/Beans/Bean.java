@@ -56,7 +56,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	}
 	
 	public void pop() {
-		world.setCurrentScore(world.getCurrentScore() + getScore());
+		world.addToScore(getScore());
 		world.deleteGameObject(this);
 	}
 	

@@ -13,7 +13,7 @@ public class RainbowBean extends Bean {
 		super.pop();
 		for (GameObject g : world.getBeans()) {
 			if (g == this) continue;
-			world.setCurrentScore(world.getCurrentScore() + getLowScore());
+			world.addToScore(getLowScore());
 			world.deleteGameObject(g);
 		}
 		world.resetTileMap(0);

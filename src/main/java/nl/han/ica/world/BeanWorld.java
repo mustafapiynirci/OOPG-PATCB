@@ -22,12 +22,12 @@ import processing.core.PApplet;
  */
 @SuppressWarnings("serial")
 public class BeanWorld extends GameEngine {
-
+	
 	private TextObject highscoreTekst, currentScoreTekst;
 	private BeanSpawner beanSpawner;
 	private IPersistence persistence;
 	private Pajaro pajaro;
-	private int worldWidth, worldHeight, tileSize, totalHighscore, currentScore;
+	private int worldWidth, worldHeight, tileSize, totalHighscore, currentScore, scoreSpeedUpTrigger;
 	private ArrayList<Alarm> alarms = new ArrayList<>();
 	private ArrayList<Bean> beans = new ArrayList<>();
 	private int[][] tilesMap;
@@ -38,16 +38,16 @@ public class BeanWorld extends GameEngine {
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "nl.han.ica.world.BeanWorld" });
 	}
-
+	
 	public ArrayList<Bean> getBeans() {
 		return beans;
 	}
-
+	
 	/**
 	 * Deze methode voegt een alarm toe aan een alarm
 	 *
 	 * @param a
-	 * 		Deze parameter moet een object van het type Alarm bevatten.
+	 *            Deze parameter moet een object van het type Alarm bevatten.
 	 */
 	public void addAlarmToList(Alarm a) {
 		alarms.add(a);
@@ -70,7 +70,7 @@ public class BeanWorld extends GameEngine {
 	public int getTileSize() {
 		return tileSize;
 	}
-
+	
 	/**
 	 * Deze methode geeft de breedte van de wereld terug
 	 *
@@ -79,7 +79,7 @@ public class BeanWorld extends GameEngine {
 	public int getWorldWidth() {
 		return worldWidth;
 	}
-
+	
 	/**
 	 * Deze methode geeft de hoogte van de wereld terug
 	 *
@@ -104,7 +104,7 @@ public class BeanWorld extends GameEngine {
 		createBeanSpawner();
 		createViewWithoutViewport(worldWidth, worldHeight);
 	}
-
+	
 	/**
 	 * Deze methode initialiseert de persistence
 	 */
@@ -116,7 +116,7 @@ public class BeanWorld extends GameEngine {
 		}
 		highscoreTekst.setText("Highscore: " + totalHighscore);
 	}
-
+	
 	/**
 	 * Deze methode geeft de huidige score terug
 	 *
@@ -125,18 +125,29 @@ public class BeanWorld extends GameEngine {
 	public int getCurrentScore() {
 		return currentScore;
 	}
-
+	
 	/**
 	 * De methode zet de huidige score aan het megegeven parameter waarde
 	 *
 	 * @param currentScore
-	 * 			Score waar je de huidige score aan gelijk wil zetten
+	 *            Score waar je de huidige score aan gelijk wil zetten
 	 */
 	public void setCurrentScore(int currentScore) {
 		this.currentScore = currentScore;
 		refreshDasboardText();
 	}
-
+	
+	/**
+	 * De methode voegt de meegegeven parameter toe aan de huidige score
+	 *
+	 * @param score
+	 *            Score die je aan de huidige score wilt toevoegen
+	 */
+	public void addToScore(int score) {
+		setCurrentScore(getCurrentScore() + score);
+		refreshDasboardText();
+	}
+	
 	/**
 	 * Creeërt de view zonder viewport
 	 * 
@@ -175,9 +186,9 @@ public class BeanWorld extends GameEngine {
 	 * @param dashboardHeight
 	 *            Gewenste hoogte van dashboard
 	 */
-	private void createDashboard(int dashboardWidth,int dashboardHeight) {
-		Dashboard highScoreDashboard = new Dashboard(0,0, dashboardWidth/2, dashboardHeight);
-		Dashboard currentScoreDashboard = new Dashboard((dashboardWidth/2)/2, 0, dashboardWidth, dashboardHeight);
+	private void createDashboard(int dashboardWidth, int dashboardHeight) {
+		Dashboard highScoreDashboard = new Dashboard(0, 0, dashboardWidth / 2, dashboardHeight);
+		Dashboard currentScoreDashboard = new Dashboard((dashboardWidth / 2) / 2, 0, dashboardWidth, dashboardHeight);
 		highscoreTekst = new TextObject("");
 		currentScoreTekst = new TextObject("");
 		highScoreDashboard.addGameObject(highscoreTekst);
@@ -185,7 +196,7 @@ public class BeanWorld extends GameEngine {
 		addDashboard(highScoreDashboard);
 		addDashboard(currentScoreDashboard);
 	}
-
+	
 	/**
 	 * Initialiseert de tilemap
 	 */
@@ -196,20 +207,23 @@ public class BeanWorld extends GameEngine {
 		}
 		tileMap = new TileMap(tileSize, tileTypes, tilesMap);
 	}
-
+	
 	/**
 	 * Herstelt de onderste rij van de tilemap
 	 */
 	public void resetTileMap(int tileType) {
-		for(int i = 0; i < tilesMap[tilesMap.length - 1].length; i++) {
+		for (int i = 0; i < tilesMap[tilesMap.length - 1].length; i++) {
 			tilesMap[tilesMap.length - 1][i] = tileType;
 		}
 		tileMap = new TileMap(tileSize, tileTypes, tilesMap);
 	}
-
+	
 	@Override
 	public void update() {
-		// System.out.println(alarms.size());
+		if (scoreSpeedUpTrigger <= currentScore) {
+			scoreSpeedUpTrigger += 1000;
+			beanSpawner.increaseSpeed();
+		}
 	}
 	
 	/**
@@ -236,11 +250,11 @@ public class BeanWorld extends GameEngine {
 	/**
 	 * Vernieuwt het dashboard
 	 */
-	 public void refreshDasboardText() {
-		 if(currentScore > totalHighscore) {
-			 persistence.saveData(Integer.toString(currentScore));
-			 highscoreTekst.setText("Highscore: " + currentScore);
-		 }
-		 currentScoreTekst.setText("Score: " + currentScore);
-	 }
+	public void refreshDasboardText() {
+		if (currentScore > totalHighscore) {
+			persistence.saveData(Integer.toString(currentScore));
+			highscoreTekst.setText("Highscore: " + currentScore);
+		}
+		currentScoreTekst.setText("Score: " + currentScore);
+	}
 }
