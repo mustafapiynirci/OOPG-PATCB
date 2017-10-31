@@ -30,9 +30,8 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	
 	/**
 	 * Constructor
-	 * 
 	 * @param world
-	 *            Referentie naar de wereld
+	 *          Reference to the world
 	 */
 	public Pajaro(BeanWorld world) {
 		super(new Sprite("src/main/java/nl/han/ica/world/media/pajaro.png"), 4);
@@ -41,7 +40,10 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 		side = LookingSide.RIGHT;
 		state = PajaroState.IDLE;
 	}
-	
+
+	/**
+	 * This method runs constant and has the functionality of Pájaro's tongue
+	 */
 	@Override
 	public void update() {
 		if (state == PajaroState.IDLE) {
@@ -80,13 +82,21 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 			}
 		}
 	}
-	
+
+	/**
+	 * This method gets called when the toungue is back at Pájaro and some values get resetted
+	 */
 	public void retracted() {
 		state = PajaroState.IDLE;
 		tongue = null;
 		setCurrentFrameIndex(side == LookingSide.RIGHT ? rightFramesOffset : 0);
 	}
-	
+
+	/**
+	 * This method detects if a key is pressed and shoots the tongue
+	 * @param keyCode
+	 * @param key
+	 */
 	@Override
 	public void keyPressed(int keyCode, char key) {
 		// To improve the performance and input consistency, we only toggle the button's

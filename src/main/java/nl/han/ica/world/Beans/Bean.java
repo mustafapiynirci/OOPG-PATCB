@@ -43,7 +43,8 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 		PImage img = getImage().get(getCurrentFrame().x, getCurrentFrame().y, getCurrentFrame().width, getCurrentFrame().height);
 		g.image(img, x - (int) Math.ceil((getHeight() / 2)), y - (int) Math.ceil((getHeight() / 3)));
 	}
-	
+
+
 	@Override
 	public void update() {
 		if (getY() >= world.getHeight()) {

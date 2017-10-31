@@ -16,23 +16,28 @@ public class BeanSpawner implements IAlarmListener {
 
 
     /** Constructor
-     * @param world Referentie naar de wereld
-     * @param beansPerSecond Aantal bellen dat per seconden gemaakt moet worden
+     * @param world reference to the BeanWorld
+     * @param beansPerSecond Amount of beans per second that will get generated
      */
     public BeanSpawner(BeanWorld world, double beansPerSecond) {
         this.beansPerSecond=beansPerSecond;
         this.world=world;
         random=new Random();
-        startAlarm();
+        startAlarm("New beanspawner");
     }
 
-    private void startAlarm() {
-        Alarm alarm=new Alarm("New bubble",1/beansPerSecond);
-//        world.addAlarmToList(alarm);
+    private void startAlarm(String alarmName) {
+        Alarm alarm=new Alarm(alarmName,1/beansPerSecond);
+        world.addAlarmToList(alarm);
         alarm.addTarget(this);
         alarm.start();
     }
 
+    /**
+     * This method gets called when the alarm should go off
+     * @param alarmName
+     *            Name of the alarm
+     */
     @Override
     public void triggerAlarm(String alarmName) {
         int beanSize = 32;
@@ -53,6 +58,6 @@ public class BeanSpawner implements IAlarmListener {
             spawnHelper[i] = i * world.getTileSize();
         }
         world.addGameObject(b, spawnHelper[random.nextInt(lengthHelper)], 0 - b.getHeight());
-        startAlarm();
+        startAlarm(alarmName);
     }
 }

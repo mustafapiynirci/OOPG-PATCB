@@ -44,17 +44,16 @@ public class BeanWorld extends GameEngine {
 	}
 
 	/**
-	 * Deze methode voegt een alarm toe aan een alarm
-	 *
+	 * In this method the alarm gets added to an alarm list
 	 * @param a
-	 * 		Deze parameter moet een object van het type Alarm bevatten.
+	 * 		This parameter should be an object of the type Alarm
 	 */
 	public void addAlarmToList(Alarm a) {
 		alarms.add(a);
 	}
 	
 	/**
-	 * Stop alle alarms in een lijst
+	 * In this method all alarms in a list gets stopped
 	 */
 	public void stopAllAlarms() {
 		for (Alarm a : alarms) {
@@ -63,34 +62,34 @@ public class BeanWorld extends GameEngine {
 	}
 	
 	/**
-	 * Deze methode geeft de grootte van tile terug
-	 * 
-	 * @return grondstuk grootte
+	 * This method returns the tile size
+	 * @return tileSize
+	 * 				Size of the tile
 	 */
 	public int getTileSize() {
 		return tileSize;
 	}
 
 	/**
-	 * Deze methode geeft de breedte van de wereld terug
-	 *
-	 * @return wereld breedte
+	 * This method returns the world width
+	 * @return wereld worldWidth
+	 * 						Width of the world
 	 */
 	public int getWorldWidth() {
 		return worldWidth;
 	}
 
 	/**
-	 * Deze methode geeft de hoogte van de wereld terug
-	 *
-	 * @return wereld hoogte
+	 * This method returns the world height
+	 * @return worldHeight
+	 * 				Height of the world
 	 */
 	public int getWorldHeight() {
 		return worldHeight;
 	}
 	
 	/**
-	 * In deze methode worden de voor het spel noodzakelijke zaken geïnitialiseerd
+	 * THis method initializes the needed methods and variables
 	 */
 	@Override
 	public void setupGame() {
@@ -106,7 +105,7 @@ public class BeanWorld extends GameEngine {
 	}
 
 	/**
-	 * Deze methode initialiseert de persistence
+	 * This method initializes the percistence ands sets the dashboard value of the highscore
 	 */
 	private void initializePersistence() {
 		persistence = new FilePersistence("main/java/nl/han/ica/world/media/highscore.txt");
@@ -118,19 +117,18 @@ public class BeanWorld extends GameEngine {
 	}
 
 	/**
-	 * Deze methode geeft de huidige score terug
-	 *
-	 * @return huidige score
+	 * THis method returns the current highscore
+	 * @return currentScore
+	 * 				Current scure
 	 */
 	public int getCurrentScore() {
 		return currentScore;
 	}
 
 	/**
-	 * De methode zet de huidige score aan het megegeven parameter waarde
-	 *
+	 * Tis method puts the current score to the given parameter value
 	 * @param currentScore
-	 * 			Score waar je de huidige score aan gelijk wil zetten
+	 * 			Value that you want to set the score to
 	 */
 	public void setCurrentScore(int currentScore) {
 		this.currentScore = currentScore;
@@ -138,12 +136,11 @@ public class BeanWorld extends GameEngine {
 	}
 
 	/**
-	 * Creeërt de view zonder viewport
-	 * 
+	 * Generates the view without viewport
 	 * @param screenWidth
-	 *            Breedte van het scherm
+	 * 			  	Width of the window
 	 * @param screenHeight
-	 *            Hoogte van het scherm
+	 * 				Height of the window
 	 */
 	private void createViewWithoutViewport(int screenWidth, int screenHeight) {
 		View view = new View(screenWidth, screenHeight);
@@ -153,7 +150,7 @@ public class BeanWorld extends GameEngine {
 	}
 	
 	/**
-	 * Maakt de spelobjecten aan
+	 * Generates the gameobjects
 	 */
 	private void createObjects() {
 		pajaro = new Pajaro(this);
@@ -161,19 +158,18 @@ public class BeanWorld extends GameEngine {
 	}
 	
 	/**
-	 * Maakt de spawner voor de bonen aan
+	 * Creates the bean spawner
 	 */
 	public void createBeanSpawner() {
 		beanSpawner = new BeanSpawner(this, 0.5);
 	}
 	
 	/**
-	 * Maakt het dashboard aan
-	 * 
+	 * Creates the dashboards
 	 * @param dashboardWidth
-	 *            Gewenste breedte van dashboard
+	 * 				Width that the dashboard should be
 	 * @param dashboardHeight
-	 *            Gewenste hoogte van dashboard
+	 * 				Height the dashboard should be
 	 */
 	private void createDashboard(int dashboardWidth,int dashboardHeight) {
 		Dashboard highScoreDashboard = new Dashboard(0,0, dashboardWidth/2, dashboardHeight);
@@ -187,7 +183,7 @@ public class BeanWorld extends GameEngine {
 	}
 
 	/**
-	 * Initialiseert de tilemap
+	 * Initializes the tilemap
 	 */
 	private void initializeTileMap() {
 		tilesMap = new int[worldHeight / tileSize][worldWidth / tileSize];
@@ -198,7 +194,7 @@ public class BeanWorld extends GameEngine {
 	}
 
 	/**
-	 * Herstelt de onderste rij van de tilemap
+	 * Regenerates the lowest row of the tilemap
 	 */
 	public void resetTileMap(int tileType) {
 		for(int i = 0; i < tilesMap[tilesMap.length - 1].length; i++) {
@@ -213,7 +209,7 @@ public class BeanWorld extends GameEngine {
 	}
 	
 	/**
-	 * Alle acties die uitgevoerd moeten worden wanneer de speler af is
+	 * This method calls all methods that should be runned when it's gameover
 	 */
 	public void gameOver() {
 		stopAllAlarms();
@@ -222,19 +218,22 @@ public class BeanWorld extends GameEngine {
 	}
 	
 	/**
-	 * Laat de "Game Over" bericht zien op het scherm
+	 * This methods shows the "Game Over" message on the screen
 	 */
 	public void showGameOver() {
 		highscoreTekst.setText("Game Over");
 		currentScoreTekst.setText("");
 	}
-	
+
+	/**
+	 * This method removes all gameobjects
+	 */
 	public void clearAllGameObjects() {
 		getGameObjectItems().removeAllElements();
 	}
 	
 	/**
-	 * Vernieuwt het dashboard
+	 * This method refreshes the dashboard
 	 */
 	 public void refreshDasboardText() {
 		 if(currentScore > totalHighscore) {
