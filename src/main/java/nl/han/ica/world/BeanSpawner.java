@@ -11,8 +11,8 @@ import nl.han.ica.world.Beans.WhiteBean;
 import java.util.Random;
 
 public class BeanSpawner implements IAlarmListener {
-	private final static String[] beanTypes = { "RainbowBean", "GreenBean" };
-	private final static double[] beanChances = { 0.05, 1 };
+	private final static String[] beanTypes = { "RainbowBean", "WhiteBean", "GreenBean" };
+	private final static double[] beanChances = { 0.03, 0.1, 1 };
 	private double beansPerSecond;
 	private Random random;
 	private BeanWorld world;
