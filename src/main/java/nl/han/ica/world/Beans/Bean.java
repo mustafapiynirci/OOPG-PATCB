@@ -17,15 +17,15 @@ import java.util.List;
 
 public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
-	protected int beanSize;
+	protected static final int beanSize = 32;
+	
 	protected int spriteFrame = 0;
 	protected final BeanWorld world;
 	
 	private static final int[][] scoreModel = { { 10, 1000 }, { 30, 300 }, { 60, 100 }, { 90, 50 }, { 100, 10 } };
 	
-	public Bean(BeanWorld world, int beanSize, String spriteUrl, int spriteSlices) {
+	public Bean(BeanWorld world, String spriteUrl, int spriteSlices) {
 		super(new Sprite(spriteUrl), spriteSlices);
-		this.beanSize = beanSize;
 		this.world = world;
 		setySpeed(+beanSize / 15f);
 		setHeight(beanSize);
