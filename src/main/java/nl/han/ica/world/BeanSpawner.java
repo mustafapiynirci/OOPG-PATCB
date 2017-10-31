@@ -11,23 +11,27 @@ import nl.han.ica.world.Beans.WhiteBean;
 import java.util.Random;
 
 public class BeanSpawner implements IAlarmListener {
-	private final static String[] beanTypes = { "RainbowBean", "GreenBean" };
-	private final static double[] beanChances = { 0.05, 1 };
+	private final static String[] beanTypes = { "RainbowBean", "WhiteBean", "GreenBean" };
+	private final static double[] beanChances = { 0.03, 0.1, 1 };
 	private double beansPerSecond;
 	private Random random;
 	private BeanWorld world;
-
-
-    /** Constructor
-     * @param world reference to the BeanWorld
-     * @param beansPerSecond Amount of beans per second that will get generated
-     */
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param world
+	 *            reference to the BeanWorld
+	 * @param beansPerSecond
+	 *            Amount of beans per second that will get generated
+	 */
 	public BeanSpawner(BeanWorld world, double beansPerSecond) {
 		this.beansPerSecond = beansPerSecond;
 		this.world = world;
 		random = new Random();
 		startAlarm();
 	}
+	
 	private void startAlarm() {
 		Alarm alarm = new Alarm("New bubble", 1 / beansPerSecond + random.nextDouble());
 		alarm.addTarget(this);
@@ -36,22 +40,21 @@ public class BeanSpawner implements IAlarmListener {
 	
 	public void increaseSpeed() {
 		System.out.println(beansPerSecond);
-		beansPerSecond += 0.05;
+		beansPerSecond += 0.1;
 	}
-
-    /**
-     * This method gets called when the alarm should go off
-
-     * @param alarmName
-     *            Name of the alarm
-     */
+	
+	/**
+	 * This method gets called when the alarm should go off
+	 * 
+	 * @param alarmName
+	 *            Name of the alarm
+	 */
 	@Override
 	public void triggerAlarm(String alarmName) {
-		int beanSize = 32;
 		String whichBean = "GreenBean";
 		Bean b;
 		double r = random.nextDouble();
-
+		
 		for (int i = 0; i < beanTypes.length && i < beanChances.length; i++) {
 			if (r < beanChances[i]) {
 				whichBean = beanTypes[i];
