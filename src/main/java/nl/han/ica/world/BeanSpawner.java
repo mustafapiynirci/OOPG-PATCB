@@ -59,13 +59,13 @@ public class BeanSpawner implements IAlarmListener {
 		}
 		
 		if (whichBean == "RainbowBean")
-			b = new RainbowBean(world, beanSize);
+			b = new RainbowBean(world);
 		else if (whichBean == "WhiteBean")
-			b = new WhiteBean(world, beanSize);
+			b = new WhiteBean(world);
 		else if (whichBean == "TimeSlowingBean")
-			b = new TimeSlowingBean(world, beanSize);
+			b = new TimeSlowingBean(world);
 		else
-			b = new GreenBean(world, beanSize);
+			b = new GreenBean(world);
 		
 		int lengthHelper = (world.getWidth() / world.getTileSize()) - 1;
 		int[] spawnHelper = new int[lengthHelper];

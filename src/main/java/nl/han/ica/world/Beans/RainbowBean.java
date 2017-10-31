@@ -6,8 +6,8 @@ import nl.han.ica.world.BeanWorld;
 
 public class RainbowBean extends Bean {
 	
-	public RainbowBean(BeanWorld world, int beanSize) {
-		super(world, beanSize, "nl/han/ica/world/media/rainbowbean.png", 4);
+	public RainbowBean(BeanWorld world) {
+		super(world, "nl/han/ica/world/media/rainbowbean.png", 4);
 	}
 	
 	public void pop() {
