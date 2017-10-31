@@ -75,6 +75,11 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 		createPoof();
 		delete();
 	}
+
+	public void poof(Iterator<Bean> iter) {
+		createPoof();
+		delete(iter);
+	}
 	
 	private void createPoof() {
 		world.addGameObject(new Poof(world), getX() - 32, getY() - 32);

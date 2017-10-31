@@ -20,7 +20,7 @@ public class RainbowBean extends Bean {
 			Bean b = iter.next();
 			if (b == this) continue;
 			world.addToScore(getLowScore());
-			b.delete(iter);
+			b.poof(iter);
 		}
 		world.resetTileMap(0);
 	}
