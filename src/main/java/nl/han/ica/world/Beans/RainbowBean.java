@@ -4,6 +4,11 @@ import java.util.Iterator;
 
 import nl.han.ica.world.BeanWorld;
 
+/**
+ * @author Jesse Oukes & Mustafa Piynirci
+ * All beans poper and tiles regenerator bean
+ */
+
 public class RainbowBean extends Bean {
 
 	/**

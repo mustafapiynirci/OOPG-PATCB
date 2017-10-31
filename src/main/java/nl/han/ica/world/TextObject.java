@@ -4,8 +4,8 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import processing.core.PGraphics;
 
 /**
- * @author Ralph Niels
- * Wordt gebruikt om een tekst te kunnen afbeelden
+ * @author Jesse Oukes & Mustafa Piynirci
+ * Used to show text
  */
 public class TextObject extends GameObject {
 

@@ -2,6 +2,11 @@ package nl.han.ica.world.Beans;
 
 import nl.han.ica.world.BeanWorld;
 
+/**
+ * @author Jesse Oukes & Mustafa Piynirci
+ * Time slowing bean
+ */
+
 public class TimeSlowingBean extends Bean {
 
 	/**

@@ -9,6 +9,11 @@ import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.world.BeanWorld;
 import nl.han.ica.world.effects.Poof;
 
+/**
+ * @author Jesse Oukes & Mustafa Piynirci
+ * Tile regenerator bean
+ */
+
 public class WhiteBean extends Bean {
 	
 	/**

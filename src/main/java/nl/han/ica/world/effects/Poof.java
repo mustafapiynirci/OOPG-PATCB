@@ -4,6 +4,11 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.world.BeanWorld;
 
+/**
+ * @author Jesse Oukes & Mustafa Piynirci
+ * Poof animation
+ */
+
 public class Poof extends AnimatedSpriteObject {
 	
 	private int life = 0;

@@ -13,16 +13,14 @@ import processing.core.PConstants;
 import java.util.List;
 
 /**
- * @author Ralph Niels
- *         De spelerklasse (het paarse visje)
+ * @author Jesse Oukes & Mustafa Piynirci
+ * The player Pájaro
  */
+
 public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameObjects {
 	
-	private final static int rightFramesOffset = 2;
-	private final static int tongueOffset = 20;
-	private final static int size = 32;
-	private final static int speed = 6;
-	
+	private final int rightFramesOffset = 2;
+
 	private final BeanWorld world;
 	private LookingSide side;
 	private PajaroState state;
@@ -48,7 +46,9 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	@Override
 	public void update() {
 		if (state == PajaroState.IDLE) {
+			int speed = 6;
 			if (shootPress) {
+				int tongueOffset = 20;
 				tongue = new Tongue(world, this, side, world.getTileSize(),
 						getX() + getWidth() / 4 + (side == LookingSide.LEFT ? -tongueOffset : tongueOffset),
 						getY() + getHeight() / 4);
@@ -66,6 +66,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 					}
 				}
 			} else if (rightPress) {
+				int size = 32;
 				if (getX() + size * 2 < world.getWorldWidth()) {
 					Tile tile = world.getTileMap().getTileOnIndex((int) getX() / world.getTileSize() + 2,
 							world.getWorldHeight() / world.getTileSize() - 1);
@@ -134,7 +135,6 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
 		for (GameObject g : collidedGameObjects) {
 			if (g instanceof Bean) {
-				System.out.println("Game Over");
 				world.gameOver();
 			}
 		}

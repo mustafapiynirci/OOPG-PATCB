@@ -11,6 +11,11 @@ import nl.han.ica.world.Beans.WhiteBean;
 
 import java.util.Random;
 
+/**
+ * @author Jesse Oukes & Mustafa Piynirci
+ * Is the spawner of all beans
+ */
+
 public class BeanSpawner implements IAlarmListener {
 	private final String[] beanTypes = { "RainbowBean", "WhiteBean", "GreenBean" };
 	private final double[] beanChances = { 0.03, 0.1, 1 };

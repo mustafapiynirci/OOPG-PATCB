@@ -1,8 +1,10 @@
 package nl.han.ica.world.player;
 
 /**
- * This enum makes sure that 'LookinsSide' only has the given values and nothing else
+ * @author Jesse Oukes & Mustafa Piynirci
+ * All sides Pájaro can look at
  */
+
 public enum LookingSide {
     LEFT, RIGHT
 }

@@ -15,10 +15,14 @@ import processing.core.PVector;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * @author Jesse Oukes & Mustafa Piynirci
+ * Base of all beans
+ */
+
 public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
-	
-	private static final int beanSize = 32;
-	private static final int[][] scoreModel = { { 10, 1000 }, { 30, 300 }, { 60, 100 }, { 90, 50 }, { 100, 10 } };
+
+	private final int[][] scoreModel = { { 10, 1000 }, { 30, 300 }, { 60, 100 }, { 90, 50 }, { 100, 10 } };
 	private int spriteFrame = 0;
 	
 	protected final BeanWorld world;
@@ -35,6 +39,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	public Bean(BeanWorld world, String spriteUrl, int spriteSlices) {
 		super(new Sprite(spriteUrl), spriteSlices);
 		this.world = world;
+		int beanSize = 32;
 		setySpeed(+beanSize / 15f);
 		setHeight(beanSize);
 		setWidth(beanSize);

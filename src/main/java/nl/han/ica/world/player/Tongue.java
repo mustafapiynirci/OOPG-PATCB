@@ -11,6 +11,11 @@ import processing.core.PGraphics;
 
 import java.util.List;
 
+/**
+ * @author Jesse Oukes & Mustafa Piynirci
+ * Tongue of Pájaro
+ */
+
 public class Tongue extends GameObject implements ICollidableWithGameObjects {
 	
 	private BeanWorld world;

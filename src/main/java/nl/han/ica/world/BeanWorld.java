@@ -23,12 +23,11 @@ import nl.han.ica.world.tiles.BoardsTile;
 import processing.core.PApplet;
 
 /**
- * @author Ralph Niels
+ * @author Jesse Oukes & Mustafa Piynirci
+ * Is the base of the game
  */
 @SuppressWarnings("serial")
 public class BeanWorld extends GameEngine {
-
-	public boolean test = true;
 	
 	private TextObject highscoreTekst, currentScoreTekst;
 	private BeanSpawner beanSpawner;
@@ -63,6 +62,11 @@ public class BeanWorld extends GameEngine {
 		alarms.add(a);
 	}
 
+	/**
+	 * Remove given alarm
+	 * @param a
+	 * 			Parameter of type Alarm
+	 */
 	public void removeAlarmFromList(Alarm a) { alarms.remove(a); }
 	
 	/**
@@ -256,7 +260,6 @@ public class BeanWorld extends GameEngine {
 	 */
 	public void gameOver() {
 		stopAllAlarms();
-		test = false;
 		clearAllGameObjects();
 		showGameOver();
 	}
