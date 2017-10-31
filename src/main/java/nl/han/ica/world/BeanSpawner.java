@@ -35,9 +35,10 @@ public class BeanSpawner implements IAlarmListener {
 	}
 	
 	public void increaseSpeed() {
-	}
 		System.out.println(beansPerSecond);
 		beansPerSecond += 0.05;
+	}
+
     /**
      * This method gets called when the alarm should go off
 
@@ -50,9 +51,9 @@ public class BeanSpawner implements IAlarmListener {
 		String whichBean = "GreenBean";
 		Bean b;
 		double r = random.nextDouble();
-		
-			if (r < beanChances[i]) {
+
 		for (int i = 0; i < beanTypes.length && i < beanChances.length; i++) {
+			if (r < beanChances[i]) {
 				whichBean = beanTypes[i];
 				break;
 			}
@@ -70,8 +71,8 @@ public class BeanSpawner implements IAlarmListener {
 		int lengthHelper = (world.getWidth() / world.getTileSize()) - 1;
 		int[] spawnHelper = new int[lengthHelper];
 		for (int i = 0; i < lengthHelper; i++) {
-		}
 			spawnHelper[i] = i * world.getTileSize();
+		}
 		world.addGameObject(b, spawnHelper[random.nextInt(lengthHelper)], 0 - b.getHeight());
 		startAlarm();
 	}

@@ -134,13 +134,14 @@ public class BeanWorld extends GameEngine {
 		this.currentScore = currentScore;
 		refreshDasboardText();
 	}
+
+	public void addToScore(int score) {
+		setCurrentScore(getCurrentScore() + score);
+		refreshDasboardText();
+	}
 	
 	/**
 	 * Generates the view without viewport
-	public void addToScore(int score) {
-	}
-		setCurrentScore(getCurrentScore() + score);
-		refreshDasboardText();
 	 * @param screenWidth
 	 * 			  	Width of the window
 	 * @param screenHeight
@@ -151,6 +152,16 @@ public class BeanWorld extends GameEngine {
 		view.setBackground(loadImage("src/main/java/nl/han/ica/world/media/background.jpg"));
 		setView(view);
 		size(screenWidth, screenHeight);
+	}
+
+	/**
+	 * This method deletes a bean from GameObjects and the beans list
+	 * @param bean
+	 * 			Bean parameter that contains an Bean object
+	 */
+	public void deleteBean(Bean bean) {
+		deleteGameObject(bean);
+		beans.remove(bean);
 	}
 	
 	/**
