@@ -22,12 +22,12 @@ import processing.core.PApplet;
  */
 @SuppressWarnings("serial")
 public class BeanWorld extends GameEngine {
-
+	
 	private TextObject highscoreTekst, currentScoreTekst;
 	private BeanSpawner beanSpawner;
 	private IPersistence persistence;
 	private Pajaro pajaro;
-	private int worldWidth, worldHeight, tileSize, totalHighscore, currentScore;
+	private int worldWidth, worldHeight, tileSize, totalHighscore, currentScore, scoreSpeedUpTrigger;
 	private ArrayList<Alarm> alarms = new ArrayList<>();
 	private ArrayList<Bean> beans = new ArrayList<>();
 	private int[][] tilesMap;
@@ -38,11 +38,11 @@ public class BeanWorld extends GameEngine {
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "nl.han.ica.world.BeanWorld" });
 	}
-
+	
 	public ArrayList<Bean> getBeans() {
 		return beans;
 	}
-
+	
 	/**
 	 * In this method the alarm gets added to an alarm list
 	 * @param a
@@ -69,7 +69,7 @@ public class BeanWorld extends GameEngine {
 	public int getTileSize() {
 		return tileSize;
 	}
-
+	
 	/**
 	 * This method returns the world width
 	 * @return wereld worldWidth
@@ -78,7 +78,7 @@ public class BeanWorld extends GameEngine {
 	public int getWorldWidth() {
 		return worldWidth;
 	}
-
+	
 	/**
 	 * This method returns the world height
 	 * @return worldHeight
@@ -103,7 +103,7 @@ public class BeanWorld extends GameEngine {
 		createBeanSpawner();
 		createViewWithoutViewport(worldWidth, worldHeight);
 	}
-
+	
 	/**
 	 * This method initializes the percistence ands sets the dashboard value of the highscore
 	 */
@@ -115,7 +115,7 @@ public class BeanWorld extends GameEngine {
 		}
 		highscoreTekst.setText("Highscore: " + totalHighscore);
 	}
-
+	
 	/**
 	 * THis method returns the current highscore
 	 * @return currentScore
@@ -124,7 +124,7 @@ public class BeanWorld extends GameEngine {
 	public int getCurrentScore() {
 		return currentScore;
 	}
-
+	
 	/**
 	 * Tis method puts the current score to the given parameter value
 	 * @param currentScore
@@ -134,9 +134,13 @@ public class BeanWorld extends GameEngine {
 		this.currentScore = currentScore;
 		refreshDasboardText();
 	}
-
+	
 	/**
 	 * Generates the view without viewport
+	public void addToScore(int score) {
+	}
+		setCurrentScore(getCurrentScore() + score);
+		refreshDasboardText();
 	 * @param screenWidth
 	 * 			  	Width of the window
 	 * @param screenHeight
@@ -171,9 +175,9 @@ public class BeanWorld extends GameEngine {
 	 * @param dashboardHeight
 	 * 				Height the dashboard should be
 	 */
-	private void createDashboard(int dashboardWidth,int dashboardHeight) {
-		Dashboard highScoreDashboard = new Dashboard(0,0, dashboardWidth/2, dashboardHeight);
-		Dashboard currentScoreDashboard = new Dashboard((dashboardWidth/2)/2, 0, dashboardWidth, dashboardHeight);
+	private void createDashboard(int dashboardWidth, int dashboardHeight) {
+		Dashboard highScoreDashboard = new Dashboard(0, 0, dashboardWidth / 2, dashboardHeight);
+		Dashboard currentScoreDashboard = new Dashboard((dashboardWidth / 2) / 2, 0, dashboardWidth, dashboardHeight);
 		highscoreTekst = new TextObject("");
 		currentScoreTekst = new TextObject("");
 		highScoreDashboard.addGameObject(highscoreTekst);
@@ -181,7 +185,7 @@ public class BeanWorld extends GameEngine {
 		addDashboard(highScoreDashboard);
 		addDashboard(currentScoreDashboard);
 	}
-
+	
 	/**
 	 * Initializes the tilemap
 	 */
@@ -192,20 +196,23 @@ public class BeanWorld extends GameEngine {
 		}
 		tileMap = new TileMap(tileSize, tileTypes, tilesMap);
 	}
-
+	
 	/**
 	 * Regenerates the lowest row of the tilemap
 	 */
 	public void resetTileMap(int tileType) {
-		for(int i = 0; i < tilesMap[tilesMap.length - 1].length; i++) {
+		for (int i = 0; i < tilesMap[tilesMap.length - 1].length; i++) {
 			tilesMap[tilesMap.length - 1][i] = tileType;
 		}
 		tileMap = new TileMap(tileSize, tileTypes, tilesMap);
 	}
-
+	
 	@Override
 	public void update() {
-		// System.out.println(alarms.size());
+		if (scoreSpeedUpTrigger <= currentScore) {
+			scoreSpeedUpTrigger += 1000;
+			beanSpawner.increaseSpeed();
+		}
 	}
 	
 	/**
@@ -235,11 +242,11 @@ public class BeanWorld extends GameEngine {
 	/**
 	 * This method refreshes the dashboard
 	 */
-	 public void refreshDasboardText() {
-		 if(currentScore > totalHighscore) {
-			 persistence.saveData(Integer.toString(currentScore));
-			 highscoreTekst.setText("Highscore: " + currentScore);
-		 }
-		 currentScoreTekst.setText("Score: " + currentScore);
-	 }
+	public void refreshDasboardText() {
+		if (currentScore > totalHighscore) {
+			persistence.saveData(Integer.toString(currentScore));
+			highscoreTekst.setText("Highscore: " + currentScore);
+		}
+		currentScoreTekst.setText("Score: " + currentScore);
+	}
 }
