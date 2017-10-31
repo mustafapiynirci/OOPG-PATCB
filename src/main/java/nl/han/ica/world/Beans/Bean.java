@@ -20,17 +20,18 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	private static final int beanSize = 32;
 	private static final int[][] scoreModel = { { 10, 1000 }, { 30, 300 }, { 60, 100 }, { 90, 50 }, { 100, 10 } };
 	private int spriteFrame = 0;
-
+	
 	protected final BeanWorld world;
-
+	
 	/**
 	 * Constructor
+	 * 
 	 * @param world
-	 * 			World parameter
+	 *            World parameter
 	 * @param spriteUrl
-	 * 			Sprite url path
+	 *            Sprite url path
 	 * @param spriteSlices
-	 * 			Amount of slices the sprite should be cut in
+	 *            Amount of slices the sprite should be cut in
 	 */
 	public Bean(BeanWorld world, String spriteUrl, int spriteSlices) {
 		super(new Sprite(spriteUrl), spriteSlices);
@@ -43,17 +44,20 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * Sprite positie aanpassen zodat het niet begint op 0,0 van het object
+	 * 
 	 * @param g
-	 *        Processing object
+	 *            Processing object
 	 */
 	@Override
 	public void draw(PGraphics g) {
-		PImage img = getImage().get(getCurrentFrame().x, getCurrentFrame().y, getCurrentFrame().width, getCurrentFrame().height);
+		PImage img = getImage().get(getCurrentFrame().x, getCurrentFrame().y, getCurrentFrame().width,
+				getCurrentFrame().height);
 		g.image(img, x - (int) Math.ceil((getHeight() / 2)), y - (int) Math.ceil((getHeight() / 3)));
 	}
-
+	
 	/**
-	 * This method gets called constantly and has a basic functionality like removing
+	 * This method gets called constantly and has a basic functionality like
+	 * removing
 	 * the bean and updating the sprite
 	 */
 	@Override
@@ -66,7 +70,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 		if (spriteFrame == 40) spriteFrame = 0;
 		setCurrentFrameIndex(spriteFrame / 10);
 	}
-
+	
 	/**
 	 * This method adds a score to the current score
 	 */
@@ -74,47 +78,50 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 		world.addToScore(getScore());
 		delete();
 	}
-
+	
 	/**
 	 * This method removes the bean
 	 */
 	public void delete() {
 		world.deleteBean(this);
 	}
-
+	
 	/**
 	 * This
+	 * 
 	 * @param iter
 	 */
 	public void delete(Iterator<Bean> iter) {
 		iter.remove();
 		world.deleteGameObject(this);
 	}
-
+	
 	/**
 	 * This method creates a Poof object that animates on the current position
 	 */
 	private void createPoof() {
 		world.addGameObject(new Poof(world), getX() - 32, getY() - 32);
 	}
-
+	
 	/**
-	 * This method calls all methods that needs to run when a bean gets removed from the world but not when the tongue hits the bean
+	 * This method calls all methods that needs to run when a bean gets removed from
+	 * the world but not when the tongue hits the bean
 	 */
 	public void poof() {
 		delete();
 		createPoof();
 	}
-
+	
 	public void poof(Iterator<Bean> iter) {
 		createPoof();
 		delete(iter);
 	}
-
+	
 	/**
 	 * Returns the score score when a bean gets eaten
+	 * 
 	 * @return score
-	 * 			This value contains the score
+	 *         This value contains the score
 	 */
 	public int getScore() {
 		for (int[] i : scoreModel) {
@@ -124,20 +131,22 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 		}
 		return getLowScore();
 	}
-
+	
 	/**
 	 * This method returns the lowest score
+	 * 
 	 * @return scoreModel
-	 * 				Lowest score what a player can get when a bean gets eaten
+	 *         Lowest score what a player can get when a bean gets eaten
 	 */
 	public int getLowScore() {
 		return scoreModel[scoreModel.length - 1][1];
 	}
-
+	
 	/**
 	 * This method gets called when Pájaro is in collision with a tile
+	 * 
 	 * @param collidedTiles
-	 * 				List with all collided tiles
+	 *            List with all collided tiles
 	 */
 	@Override
 	public void tileCollisionOccurred(List<CollidedTile> collidedTiles) {
