@@ -11,7 +11,6 @@ public class TimeSlowingBean extends Bean {
 	
 	/**
 	 * Constructor
-	 * 
 	 * @param world
 	 *            World has the world object
 	 */

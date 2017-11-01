@@ -263,15 +263,16 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	}
 	
 	/**
-	 * Slows down time
+	 * Slows down time of beans
 	 */
 	public void slowTime() {
-		if (isSlowTime)
+		if (isSlowTime) {
 			slowAlarm.stop();
-		else {
+		} else {
 			speedFactor = 0.5f;
-			for (Bean b : beans)
+			for (Bean b : beans) {
 				b.setSpeed(b.getSpeed() * speedFactor);
+			}
 		}
 		slowAlarm = new Alarm("slow", 10);
 		slowAlarm.addTarget(this);

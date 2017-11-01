@@ -26,7 +26,6 @@ public class BeanSpawner implements IAlarmListener {
 	
 	/**
 	 * Constructor
-	 * 
 	 * @param world
 	 *            reference to the BeanWorld
 	 * @param beansPerSecond
