@@ -98,7 +98,7 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 		if (keyCode == PConstants.LEFT) {
 			leftPress = state;
 		} else if (keyCode == PConstants.UP) {
-			upPress = false;
+			upPress = state;
 			shootPress = upPress || spacePress;
 		} else if (key == ' ') {
 			spacePress = state;
