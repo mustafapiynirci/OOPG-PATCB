@@ -13,19 +13,21 @@ import java.util.Random;
 
 /**
  * @author Jesse Oukes & Mustafa Piynirci
- * Is the spawner of all beans
+ *         Is the spawner of all beans
  */
 
 public class BeanSpawner implements IAlarmListener {
-	private final String[] beanTypes = { "RainbowBean", "WhiteBean", "GreenBean" };
-	private final double[] beanChances = { 0.03, 0.1, 1 };
+	private final String[] beanTypes = { "RainbowBean", "TimeSlowingBean", "WhiteBean", "GreenBean" };
+	private final double[] beanChances = { 0.03, 0.06, 0.12, 1 };
 	private double beansPerSecond;
+	private double speedFactor = 1;
 	private Random random;
 	private BeanWorld world;
 	private Alarm alarm;
 	
 	/**
 	 * Constructor
+	 * 
 	 * @param world
 	 *            reference to the BeanWorld
 	 * @param beansPerSecond
@@ -37,18 +39,18 @@ public class BeanSpawner implements IAlarmListener {
 		random = new Random();
 		startAlarm("Bean");
 	}
-
+	
 	private void removeAlarm(Alarm alarm) {
 		world.removeAlarmFromList(alarm);
 	}
 	
 	private void startAlarm(String alarmName) {
-		alarm  = new Alarm(alarmName, 1 / beansPerSecond + random.nextDouble());
+		alarm = new Alarm(alarmName, (1 / beansPerSecond + random.nextDouble()) / speedFactor);
 		world.addAlarmToList(alarm);
 		alarm.addTarget(this);
 		alarm.start();
 	}
-
+	
 	/**
 	 * This method increases the speed of dropping beans beans
 	 */
@@ -58,6 +60,7 @@ public class BeanSpawner implements IAlarmListener {
 	
 	/**
 	 * This method gets called when the alarm should go off
+	 * 
 	 * @param alarmName
 	 *            Name of the alarm
 	 */
@@ -78,6 +81,8 @@ public class BeanSpawner implements IAlarmListener {
 			b = new RainbowBean(world);
 		else if (whichBean == "WhiteBean")
 			b = new WhiteBean(world);
+		else if (whichBean == "TimeSlowingBean")
+			b = new TimeSlowingBean(world);
 		else if (whichBean == "TimeSlowingBean")
 			b = new TimeSlowingBean(world);
 		else

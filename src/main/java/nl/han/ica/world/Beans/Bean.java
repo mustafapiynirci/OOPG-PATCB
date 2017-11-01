@@ -17,11 +17,11 @@ import java.util.List;
 
 /**
  * @author Jesse Oukes & Mustafa Piynirci
- * Base of all beans
+ *         Base of all beans
  */
 
 public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
-
+	
 	private final int[][] scoreModel = { { 10, 1000 }, { 30, 300 }, { 60, 100 }, { 90, 50 }, { 100, 10 } };
 	private int spriteFrame = 0;
 	
@@ -29,6 +29,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * Constructor
+	 * 
 	 * @param world
 	 *            World parameter
 	 * @param spriteUrl
@@ -40,7 +41,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 		super(new Sprite(spriteUrl), spriteSlices);
 		this.world = world;
 		int beanSize = 32;
-		setySpeed(+beanSize / 15f);
+		setySpeed(+beanSize / 15f * world.getSpeedFactor());
 		setHeight(beanSize);
 		setWidth(beanSize);
 		world.getBeans().add(this);
@@ -48,8 +49,9 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * Sprite positie aanpassen zodat het niet begint op 0,0 van het object
+	 * 
 	 * @param g
-	 *        Processing object
+	 *            Processing object
 	 */
 	@Override
 	public void draw(PGraphics g) {
@@ -59,7 +61,8 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	}
 	
 	/**
-	 * This method gets called constantly and has a basic functionality like removing
+	 * This method gets called constantly and has a basic functionality like
+	 * removing
 	 * the bean and updating the sprite
 	 */
 	@Override
@@ -90,6 +93,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * This method deletes the bean
+	 * 
 	 * @param iter
 	 */
 	public void delete(Iterator<Bean> iter) {
@@ -112,12 +116,13 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 		delete();
 		createPoof();
 	}
-
+	
 	/**
 	 * This method calls all methods that needs to run when a bean gets removed from
 	 * the world but not when the tongue hits the bean
+	 * 
 	 * @param iter
-	 * 			iterator value
+	 *            iterator value
 	 */
 	public void poof(Iterator<Bean> iter) {
 		createPoof();
@@ -126,6 +131,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * Returns the score score when a bean gets eaten
+	 * 
 	 * @return score
 	 *         This value contains the score
 	 */
@@ -140,6 +146,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * This method returns the lowest score
+	 * 
 	 * @return scoreModel
 	 *         Lowest score what a player can get when a bean gets eaten
 	 */
@@ -149,6 +156,7 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * This method gets called when Pájaro is in collision with a tile
+	 * 
 	 * @param collidedTiles
 	 *            List with all collided tiles
 	 */
