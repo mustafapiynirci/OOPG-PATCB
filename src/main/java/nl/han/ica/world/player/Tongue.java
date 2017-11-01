@@ -20,7 +20,6 @@ public class Tongue extends GameObject implements ICollidableWithGameObjects {
 	
 	private BeanWorld world;
 	private Pajaro pajaro;
-	private LookingSide side;
 	private float startX, startY;
 	private boolean isRetracting;
 	
@@ -33,7 +32,6 @@ public class Tongue extends GameObject implements ICollidableWithGameObjects {
 		startY = y;
 		setHeight(spitSize);
 		setWidth(spitSize);
-		this.side = side;
 		
 		float speed = 15;
 		setySpeed(-speed);
