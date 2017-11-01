@@ -109,20 +109,34 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	}
 
 	/**
-	 * This method detects if a key is pressed and shoots the tongue
+	 * This method detects if a key is pressed
 	 * @param keyCode
+	 * 			keyCode that was pressed
 	 * @param key
+	 * 			key that was pressed
 	 */
 	@Override
 	public void keyPressed(int keyCode, char key) {
 		keyPressedValue(keyCode, key, true);
 	}
-	
+
+	/**
+	 * This method detects if a key was released
+	 * @param keyCode
+	 * 			keyCode that was pressed
+	 * @param key
+	 * 			key that was pressed
+	 */
 	@Override
 	public void keyReleased(int keyCode, char key) {
 		keyPressedValue(keyCode, key, false);
 	}
-	
+
+	/**
+	 * This method detects if there was any collision with gameobjects
+	 * @param collidedGameObjects
+	 * 				List of all gameobjects that this object is collided with
+	 */
 	@Override
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
 		for (GameObject g : collidedGameObjects) {

@@ -29,7 +29,6 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * Constructor
-	 * 
 	 * @param world
 	 *            World parameter
 	 * @param spriteUrl
@@ -49,7 +48,6 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * Sprite positie aanpassen zodat het niet begint op 0,0 van het object
-	 * 
 	 * @param g
 	 *            Processing object
 	 */
@@ -93,7 +91,6 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * This method deletes the bean
-	 * 
 	 * @param iter
 	 */
 	public void delete(Iterator<Bean> iter) {
@@ -120,7 +117,6 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	/**
 	 * This method calls all methods that needs to run when a bean gets removed from
 	 * the world but not when the tongue hits the bean
-	 * 
 	 * @param iter
 	 *            iterator value
 	 */
@@ -131,7 +127,6 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * Returns the score score when a bean gets eaten
-	 * 
 	 * @return score
 	 *         This value contains the score
 	 */
@@ -146,7 +141,6 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * This method returns the lowest score
-	 * 
 	 * @return scoreModel
 	 *         Lowest score what a player can get when a bean gets eaten
 	 */
@@ -156,7 +150,6 @@ public class Bean extends AnimatedSpriteObject implements ICollidableWithTiles {
 	
 	/**
 	 * This method gets called when Pájaro is in collision with a tile
-	 * 
 	 * @param collidedTiles
 	 *            List with all collided tiles
 	 */

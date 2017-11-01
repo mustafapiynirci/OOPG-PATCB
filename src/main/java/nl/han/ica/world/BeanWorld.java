@@ -50,7 +50,6 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	
 	/**
 	 * Get list of all beans
-	 * 
 	 * @return beans
 	 *         list of all beans
 	 */
@@ -60,7 +59,6 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	
 	/**
 	 * In this method the given alarm gets added to an alarm list
-	 * 
 	 * @param a
 	 *            This parameter should be an object of the type Alarm
 	 */
@@ -70,7 +68,6 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	
 	/**
 	 * Remove given alarm
-	 * 
 	 * @param a
 	 *            Parameter of type Alarm
 	 */
@@ -89,7 +86,6 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	
 	/**
 	 * This method returns the tile size
-	 * 
 	 * @return tileSize
 	 *         Size of the tile
 	 */
@@ -99,7 +95,6 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	
 	/**
 	 * This method returns the world width
-	 * 
 	 * @return wereld worldWidth
 	 *         Width of the world
 	 */
@@ -109,7 +104,6 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	
 	/**
 	 * This method returns the world height
-	 * 
 	 * @return worldHeight
 	 *         Height of the world
 	 */
@@ -118,7 +112,7 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	}
 	
 	/**
-	 * THis method initializes the needed methods and variables
+	 * This method initializes the needed methods and variables
 	 */
 	@Override
 	public void setupGame() {
@@ -147,8 +141,7 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	}
 	
 	/**
-	 * THis method returns the current highscore
-	 * 
+	 * This method returns the current highscore
 	 * @return currentScore
 	 *         Current score
 	 */
@@ -157,8 +150,7 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	}
 	
 	/**
-	 * Tis method puts the current score to the given parameter value
-	 * 
+	 * This method puts the current score to the given parameter value
 	 * @param currentScore
 	 *            Value that you want to set the score to
 	 */
@@ -169,7 +161,6 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	
 	/**
 	 * Add value to score and refresh dashboard
-	 * 
 	 * @param score
 	 *            value to set the current score value to
 	 */
@@ -180,7 +171,6 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	
 	/**
 	 * Generates the view without viewport
-	 * 
 	 * @param screenWidth
 	 *            Width of the window
 	 * @param screenHeight
@@ -195,7 +185,6 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	
 	/**
 	 * This method deletes a bean from GameObjects and the beans list
-	 * 
 	 * @param bean
 	 *            Bean parameter that contains an Bean object
 	 */
@@ -221,7 +210,6 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	
 	/**
 	 * Creates the dashboards
-	 * 
 	 * @param dashboardWidth
 	 *            Width that the dashboard should be
 	 * @param dashboardHeight
@@ -282,7 +270,6 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	
 	/**
 	 * Triggers the given alarm
-	 * 
 	 * @param alarmName
 	 *            the name of the alarm.
 	 */
@@ -299,7 +286,6 @@ public class BeanWorld extends GameEngine implements IAlarmListener {
 	
 	/**
 	 * Returns the current speed multiplication
-	 * 
 	 * @return float speedFactor
 	 */
 	public float getSpeedFactor() {

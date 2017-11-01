@@ -22,7 +22,22 @@ public class Tongue extends GameObject implements ICollidableWithGameObjects {
 	private Pajaro pajaro;
 	private float startX, startY;
 	private boolean isRetracting;
-	
+
+	/**
+	 * Constructor
+	 * @param world
+	 * 			BeanWorld
+	 * @param pajaro
+	 * 			Pajaro
+	 * @param side
+	 * 			Side Pájaro is looking at
+	 * @param spitSize
+	 * 			Size of the sprite
+	 * @param x
+	 * 			X position
+	 * @param y
+	 * 			Y position
+	 */
 	public Tongue(BeanWorld world, Pajaro pajaro, LookingSide side, int spitSize, float x, float y) {
 		this.world = world;
 		this.pajaro = pajaro;
@@ -37,16 +52,23 @@ public class Tongue extends GameObject implements ICollidableWithGameObjects {
 		setySpeed(-speed);
 		setxSpeed(side == LookingSide.LEFT ? -speed : speed);
 	}
-	
+
+	/**
+	 * This method pulls the toungue back
+	 */
 	public void retract() {
 		if (isRetracting) {
 			return;
 		}
-		
 		setSpeed(getSpeed() * -4);
 		isRetracting = true;
 	}
-	
+
+	/**
+	 * This method gets called constantly and draws the toungue
+	 * @param g
+	 * 			PGraphics object will be given by the GameEngine.
+	 */
 	@Override
 	public void draw(PGraphics g) {
 		// tongue outline
@@ -66,13 +88,17 @@ public class Tongue extends GameObject implements ICollidableWithGameObjects {
 		g.stroke(0xFFFF73AD);
 		g.line(getX() + getWidth() / 2, getY() + getHeight() / 2, startX + getWidth() / 2, startY + getHeight() / 2);
 	}
-	
+
+	/**
+	 * This method detects if there was any collision with gameobjects
+	 * @param collidedGameObjects
+	 * 				List of all gameobjects that this object is collided with
+	 */
 	@Override
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
 		if (getySpeed() > 0) {
 			return;
 		}
-		
 		for (GameObject g : collidedGameObjects) {
 			if (g instanceof Bean) {
 				((Bean) g).pop();
@@ -80,7 +106,11 @@ public class Tongue extends GameObject implements ICollidableWithGameObjects {
 			}
 		}
 	}
-	
+
+	/**
+	 * This method gets called constantly and checks if the toungue is out of the window
+	 * and pulls back the toungue
+	 */
 	@Override
 	public void update() {
 		if (getySpeed() > 0 && getY() > pajaro.getY()) {
