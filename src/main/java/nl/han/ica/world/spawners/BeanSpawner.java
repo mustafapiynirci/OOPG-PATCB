@@ -82,8 +82,6 @@ public class BeanSpawner implements IAlarmListener {
 			b = new WhiteBean(world);
 		else if (whichBean == "TimeSlowingBean")
 			b = new TimeSlowingBean(world);
-		else if (whichBean == "TimeSlowingBean")
-			b = new TimeSlowingBean(world);
 		else
 			b = new GreenBean(world);
 		
