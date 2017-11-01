@@ -39,8 +39,9 @@ public class Tongue extends GameObject implements ICollidableWithGameObjects {
 	}
 	
 	public void retract() {
-		if (isRetracting)
+		if (isRetracting) {
 			return;
+		}
 		
 		setSpeed(getSpeed() * -4);
 		isRetracting = true;
@@ -68,8 +69,9 @@ public class Tongue extends GameObject implements ICollidableWithGameObjects {
 	
 	@Override
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
-		if (getySpeed() > 0)
+		if (getySpeed() > 0) {
 			return;
+		}
 		
 		for (GameObject g : collidedGameObjects) {
 			if (g instanceof Bean) {
