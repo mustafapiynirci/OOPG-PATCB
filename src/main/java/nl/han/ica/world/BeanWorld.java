@@ -96,7 +96,7 @@ public class BeanWorld extends GameEngine {
 		return worldWidth;
 	}
 	
-	/**
+		/**
 	 * This method returns the world height
 	 * @return worldHeight
 	 *         Height of the world

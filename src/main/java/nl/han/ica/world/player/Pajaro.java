@@ -94,6 +94,20 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 		setCurrentFrameIndex(side == LookingSide.RIGHT ? rightFramesOffset : 0);
 	}
 
+	private void keyPressedValue(int keyCode, char key, boolean state) {
+		if (keyCode == PConstants.LEFT) {
+			leftPress = state;
+		} else if (keyCode == PConstants.UP) {
+			upPress = false;
+			shootPress = upPress || spacePress;
+		} else if (key == ' ') {
+			spacePress = state;
+			shootPress = upPress || spacePress;
+		} else if (keyCode == PConstants.RIGHT) {
+			rightPress = state;
+		}
+	}
+
 	/**
 	 * This method detects if a key is pressed and shoots the tongue
 	 * @param keyCode
@@ -101,34 +115,12 @@ public class Pajaro extends AnimatedSpriteObject implements ICollidableWithGameO
 	 */
 	@Override
 	public void keyPressed(int keyCode, char key) {
-		// To improve the performance and input consistency, we only toggle the button's
-		// states here.
-		if (keyCode == PConstants.LEFT) {
-			leftPress = true;
-		} else if (keyCode == PConstants.UP) {
-			upPress = true;
-			shootPress = upPress || spacePress;
-		} else if (key == ' ') {
-			spacePress = true;
-			shootPress = upPress || spacePress;
-		} else if (keyCode == PConstants.RIGHT) {
-			rightPress = true;
-		}
+		keyPressedValue(keyCode, key, true);
 	}
 	
 	@Override
 	public void keyReleased(int keyCode, char key) {
-		if (keyCode == PConstants.LEFT) {
-			leftPress = false;
-		} else if (keyCode == PConstants.UP) {
-			upPress = false;
-			shootPress = upPress || spacePress;
-		} else if (key == ' ') {
-			spacePress = false;
-			shootPress = upPress || spacePress;
-		} else if (keyCode == PConstants.RIGHT) {
-			rightPress = false;
-		}
+		keyPressedValue(keyCode, key, false);
 	}
 	
 	@Override
