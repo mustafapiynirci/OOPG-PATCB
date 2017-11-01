@@ -38,7 +38,7 @@ public class BeanWorld extends GameEngine {
 	private ArrayList<Bean> beans = new ArrayList<>();
 	Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/world/media/ground.png");
 	TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
-	TileType[] tileTypes = { boardTileType };
+	TileType<?>[] tileTypes = { boardTileType };
 	
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "nl.han.ica.world.BeanWorld" });
