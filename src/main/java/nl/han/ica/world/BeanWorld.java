@@ -33,7 +33,7 @@ public class BeanWorld extends GameEngine {
 	private BeanSpawner beanSpawner;
 	private IPersistence persistence;
 	private Pajaro pajaro;
-	private int worldWidth, worldHeight, tileSize, totalHighscore, currentScore, scoreSpeedUpTrigger;
+	private int worldWidth, worldHeight, tileSize, highscore, currentScore, scoreSpeedUpTrigger;
 	private ArrayList<Alarm> alarms = new ArrayList<>();
 	private ArrayList<Bean> beans = new ArrayList<>();
 	Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/world/media/ground.png");
@@ -128,10 +128,10 @@ public class BeanWorld extends GameEngine {
 	private void initializePersistence() {
 		persistence = new FilePersistence("main/java/nl/han/ica/world/media/highscore.txt");
 		if (persistence.fileExists()) {
-			totalHighscore = Integer.parseInt(persistence.loadDataString());
+			highscore = Integer.parseInt(persistence.loadDataString());
 			refreshDasboardText();
 		}
-		highscoreTekst.setText("Highscore: " + totalHighscore);
+		highscoreTekst.setText("Highscore: " + highscore);
 	}
 	
 	/**
@@ -283,7 +283,7 @@ public class BeanWorld extends GameEngine {
 	 * This method refreshes the dashboard
 	 */
 	public void refreshDasboardText() {
-		if (currentScore > totalHighscore) {
+		if (currentScore > highscore) {
 			persistence.saveData(Integer.toString(currentScore));
 			highscoreTekst.setText("Highscore: " + currentScore);
 		}
