@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Alarm.Alarm;
+import nl.han.ica.OOPDProcessingEngineHAN.Alarm.IAlarmListener;
 import nl.han.ica.OOPDProcessingEngineHAN.Dashboard.Dashboard;
 import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
@@ -24,16 +25,19 @@ import processing.core.PApplet;
 
 /**
  * @author Jesse Oukes & Mustafa Piynirci
- * Is the base of the game
+ *         Is the base of the game
  */
 @SuppressWarnings("serial")
-public class BeanWorld extends GameEngine {
+public class BeanWorld extends GameEngine implements IAlarmListener {
 	
 	private TextObject highscoreTekst, currentScoreTekst;
 	private BeanSpawner beanSpawner;
 	private IPersistence persistence;
 	private Pajaro pajaro;
 	private int worldWidth, worldHeight, tileSize, highscore, currentScore, scoreSpeedUpTrigger;
+	private Alarm slowAlarm;
+	private boolean isSlowTime;
+	private float speedFactor = 1;
 	private ArrayList<Alarm> alarms = new ArrayList<>();
 	private ArrayList<Bean> beans = new ArrayList<>();
 	Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/world/media/ground.png");
@@ -43,11 +47,12 @@ public class BeanWorld extends GameEngine {
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "nl.han.ica.world.BeanWorld" });
 	}
-
+	
 	/**
 	 * Get list of all beans
+	 * 
 	 * @return beans
-	 * 			list of all beans
+	 *         list of all beans
 	 */
 	public ArrayList<Bean> getBeans() {
 		return beans;
@@ -55,19 +60,23 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * In this method the given alarm gets added to an alarm list
+	 * 
 	 * @param a
-	 * 			This parameter should be an object of the type Alarm
+	 *            This parameter should be an object of the type Alarm
 	 */
 	public void addAlarmToList(Alarm a) {
 		alarms.add(a);
 	}
-
+	
 	/**
 	 * Remove given alarm
+	 * 
 	 * @param a
-	 * 			Parameter of type Alarm
+	 *            Parameter of type Alarm
 	 */
-	public void removeAlarmFromList(Alarm a) { alarms.remove(a); }
+	public void removeAlarmFromList(Alarm a) {
+		alarms.remove(a);
+	}
 	
 	/**
 	 * In this method all alarms in a list gets stopped
@@ -80,6 +89,7 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * This method returns the tile size
+	 * 
 	 * @return tileSize
 	 *         Size of the tile
 	 */
@@ -89,6 +99,7 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * This method returns the world width
+	 * 
 	 * @return wereld worldWidth
 	 *         Width of the world
 	 */
@@ -96,8 +107,9 @@ public class BeanWorld extends GameEngine {
 		return worldWidth;
 	}
 	
-		/**
+	/**
 	 * This method returns the world height
+	 * 
 	 * @return worldHeight
 	 *         Height of the world
 	 */
@@ -136,6 +148,7 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * THis method returns the current highscore
+	 * 
 	 * @return currentScore
 	 *         Current score
 	 */
@@ -145,6 +158,7 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * Tis method puts the current score to the given parameter value
+	 * 
 	 * @param currentScore
 	 *            Value that you want to set the score to
 	 */
@@ -152,11 +166,12 @@ public class BeanWorld extends GameEngine {
 		this.currentScore = currentScore;
 		refreshDasboardText();
 	}
-
+	
 	/**
 	 * Add value to score and refresh dashboard
+	 * 
 	 * @param score
-	 * 			value to set the current score value to
+	 *            value to set the current score value to
 	 */
 	public void addToScore(int score) {
 		setCurrentScore(getCurrentScore() + score);
@@ -165,6 +180,7 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * Generates the view without viewport
+	 * 
 	 * @param screenWidth
 	 *            Width of the window
 	 * @param screenHeight
@@ -179,6 +195,7 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * This method deletes a bean from GameObjects and the beans list
+	 * 
 	 * @param bean
 	 *            Bean parameter that contains an Bean object
 	 */
@@ -204,6 +221,7 @@ public class BeanWorld extends GameEngine {
 	
 	/**
 	 * Creates the dashboards
+	 * 
 	 * @param dashboardWidth
 	 *            Width that the dashboard should be
 	 * @param dashboardHeight
@@ -243,7 +261,50 @@ public class BeanWorld extends GameEngine {
 			}
 		}
 	}
-
+	
+	/**
+	 * Slows down time
+	 */
+	public void slowTime() {
+		if (isSlowTime)
+			slowAlarm.stop();
+		else {
+			speedFactor = 0.5f;
+			for (Bean b : beans)
+				b.setSpeed(b.getSpeed() * speedFactor);
+		}
+		slowAlarm = new Alarm("slow", 10);
+		slowAlarm.addTarget(this);
+		slowAlarm.start();
+		isSlowTime = true;
+	}
+	
+	/**
+	 * Triggers the given alarm
+	 * 
+	 * @param alarmName
+	 *            the name of the alarm.
+	 */
+	@Override
+	public void triggerAlarm(String alarmName) {
+		if (alarmName != "slow") return;
+		
+		for (Bean b : beans)
+			b.setSpeed(b.getSpeed() / speedFactor);
+		speedFactor = 1;
+		
+		isSlowTime = false;
+	}
+	
+	/**
+	 * Returns the current speed multiplication
+	 * 
+	 * @return float speedFactor
+	 */
+	public float getSpeedFactor() {
+		return speedFactor;
+	}
+	
 	/**
 	 * Increase the speed of dropping beans every 1000 points
 	 */
