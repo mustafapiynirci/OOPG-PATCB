@@ -20,7 +20,6 @@ public class BeanSpawner implements IAlarmListener {
 	private final String[] beanTypes = { "RainbowBean", "TimeSlowingBean", "WhiteBean", "GreenBean" };
 	private final double[] beanChances = { 0.03, 0.06, 0.12, 1 };
 	private double beansPerSecond;
-	private double speedFactor = 1;
 	private Random random;
 	private BeanWorld world;
 	private Alarm alarm;
@@ -45,7 +44,7 @@ public class BeanSpawner implements IAlarmListener {
 	}
 	
 	private void startAlarm(String alarmName) {
-		alarm = new Alarm(alarmName, (1 / beansPerSecond + random.nextDouble()) / speedFactor);
+		alarm = new Alarm(alarmName, (1 / beansPerSecond + random.nextDouble()) / world.getSpeedFactor());
 		world.addAlarmToList(alarm);
 		alarm.addTarget(this);
 		alarm.start();
